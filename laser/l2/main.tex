@@ -216,5 +216,110 @@ $E_y,\ B_x,\ B_y,\ B_z$はぞれぞれ${\rm e}^{-i\omega t}$という項を持�
 \end{align}
 を得る.
 \setcounter{section}{4}
-\section*{問4}
+\setcounter{equation}{0}
+\section*{問4(1)}
+$w=w_0\sqrt{1+z^2/z_R^2}$, $z_R=kw_0^2/2$より
+\begin{align}
+  w(z)=\sqrt{w_0^2+\frac{4z^2}{k^2w_0^2}}
+\end{align}
+波長$633\ \si{\nano\metre}$のレーザー光の波数$k$は
+\begin{align}
+  k=\frac{2\pi}{\lambda}=9.926\times10^6\ \si{\metre^{-1}}
+\end{align}
+である.したがって$w_0=5\ \si{\metre}$のレーザー光が$3.8\times10^8\ \si{\metre}$進んだときのビーム径は
+\begin{align}
+  w=\sqrt{5^2+\frac{4\times(3.8\times10^8)^2}{(9.926\times10^6)^2\times5^2}}=16.1\ \si{\metre}
+\end{align}
+である.また$w_0=1\ \si{\micro\metre}$のレーザー光が$100\ \si{\metre}$進んだときのビーム径は
+\begin{align}
+  w=\sqrt{(1\times10^{-6})^2+\frac{4\times100^2}{(9.926\times10^6)^2\times(1\times10^{-6})^2}}=20.1\ \si{\metre}
+\end{align}
+である.
+\section*{問4(2)}
+ガウスビームの電場振幅は
+\begin{align}
+  u(x,y,z)=U_0\frac{q_0}{q_0+z}{\rm e}^{-(x^2+y^2)/w^2}{\rm e}^{ik(x^2+y^2)/2R}
+\end{align}
+である.
+$z\rightarrow0$において曲率半径$R$が$\infty$となることから${\rm e}^{ik(x^2+y^2)/2R}\rightarrow 1$である.
+また$w\rightarrow w_0$なので
+\begin{align}
+  u(x,y,0)=U_0{\rm e}^{-(x^2+y^2)/w_0^2}
+\end{align}
+になる.このときレーザー光の$(x,y,0)$における強度は
+\begin{align}
+  \frac{1}{2}c\varepsilon_0|u(x,y,0)|^2
+\end{align}
+である.したがってこのガウスビームのパワー$P$はガウス積分
+\begin{align}
+  \int dS\ {\rm e}^{-\alpha(x^2+y^2)}=\frac{\pi}{4\alpha}
+\end{align}
+を用いて
+\begin{align}
+  \begin{split}
+    P&=\frac{1}{2}c\varepsilon_0\int dS\ \left|U_0{\rm e}^{-(x^2+y^2)/w_0^2}\right|^2\\
+    &=\frac{c\varepsilon_0U_0^2}{2}\int dS\ {\rm e}^{-2(x^2+y^2)/w_0^2}\\
+    &=\frac{c\varepsilon_0U_0^2}{2}\frac{\pi w_0^2}{8}
+  \end{split}
+\end{align}
+となる.ここでレーザー光の半径$w_0=50\ \si{\micro\metre}$,出力$P=1\ \si{\watt}$のとき
+\begin{align}
+  U_0=\sqrt{\frac{16P}{\pi c\varepsilon_0w_0^2}}=8.760\times10^5\ \si{\volt.\metre^{-1}}
+\end{align}
+したがって電場振幅の分布は
+\begin{align}
+  u(x,y,0)=(8.760\times10^5){\rm e}^{-(x^2+y^2)/w_0^2}
+\end{align}
+したがってレーザーの中心$(x=y=0)$における電場強度は
+\begin{align}
+  U(0,0,0)=8.76\times10^5\ \si{\volt.\metre^{-1}}
+\end{align}
+である.
+\section*{問4(3)}
+近軸近似が成り立たないのは以下の場合である.
+\subsection*{2. 1.と同じ光を焦点距離$1\ \si{cm}$のレンズで集光した}
+平行光をレンズで集光する場合,光線は図\ref{fig:conv.jpg}のような形になる.
+ここで$w$はビーム径, $f$は焦点距離である.
+電場の大きさは, $x,y$方向については$w$程度の大きさで変化するため
+\begin{align}
+  \frac{\partial}{\partial x}\sim\frac{\partial}{\partial y}\sim\frac{1}{w}
+\end{align}
+程度と見積もることが出来る.一方で$z$方向へは$f$程度の長さで変化するため
+\begin{align}
+  \frac{\partial}{\partial z}\sim\frac{1}{f}
+\end{align}
+程度と見積もれる.今回の想定において$w=f=1\ \si{cm}$であるため
+\begin{align}
+  \frac{\partial^2}{\partial x^2}\sim\frac{\partial^2}{\partial y^2}\sim10^4\ \si{m^{-1}}
+\end{align}
+\begin{align}
+  \frac{\partial^2}{\partial z^2}\sim10^4\ \si{m^{-1}}
+\end{align}
+と$\partial^2 u/\partial z^2$の項が$\partial^2 u/\partial x^2$と同程度の大きさになり,無視できない.
+したがってこの想定では近軸近似は成立しない.
+\mfig[width=8cm]{conv.jpg}{集光の模式図}
+\subsection*{3. 波長$633\ \si{nm}$の点光源からの光を
+焦点距離$10\ \si{cm}$, 半径$10\ \si{cm}$のレンズで平行光にした}
+点光源からの光を平行光にすることは図\ref{fig:conv.jpg}において光線の向きを逆にしたものと等価であるので,同様の議論が行える.
+すなわち$w=f=10\ \si{cm}$であるため
+\begin{align}
+  \frac{\partial^2}{\partial x^2}\sim\frac{\partial^2}{\partial y^2}\sim10^2\ \si{m^{-1}}
+\end{align}
+\begin{align}
+  \frac{\partial^2}{\partial z^2}\sim10^2\ \si{m^{-1}}
+\end{align}
+よって$\partial^2 u/\partial z^2\sim\partial^2 u/\partial x^2$より,近軸近似は成立しない.
+\subsection*{4. 3.と同じ光を焦点距離$1\ \si{cm}$,半径$2\ \si{mm}$のレンズで平行光にした}
+同様に各項の大きさを見積もると
+\begin{align}
+  \frac{\partial^2}{\partial x^2}\sim\frac{\partial^2}{\partial y^2}\sim2.5\times10^5\ \si{m^{-1}}
+\end{align}
+\begin{align}
+  \frac{\partial^2}{\partial z^2}\sim10^4\ \si{m^{-1}}
+\end{align}
+と1桁程度しか異ならないため,近軸近似は成立しない.
+\subsection*{5. 波長$10\ \si{\micro\metre}$,ビーム径$1\ \si{mm}$の平行光を直径$10\ \si{\micro\metre}$のピンホールに通した}
+ピンホールによって光線の径が変わる場合,図\ref{fig:slit.jpg}のように光線の径僅かな距離で急激に変化する.
+したがって$\partial^2/\partial z^2$の項が非常に大きくなるため,近軸近似は成立しない.
+\mfig[width=8cm]{slit.jpg}{スリットによる光線の変化}
 \end{document}
