@@ -1,0 +1,69 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{応用プラズマ工学}
+\author{佐々木良輔}
+\date{}
+\maketitle
+\section{}
+質量$m$,電荷$Ze$の粒子が磁束密度$B$中で行うサイクロトロン運動の半径$r$は
+\begin{align}
+  r&=\frac{mv}{ZeB}=\frac{1}{ZeB}\sqrt{2mk_BT}\ \left[\frac{\si{(\kilo\gram.\joule)^{1/2}}}{\si{\coulomb.\tesla}}=\si{\metre}\right]
+\end{align}
+ここで$e=1.602\times10^{-19}\ \si{\coulomb}$は電気素量, $k_B=1.602\times10^{-19}\ \si{\joule.\electronvolt^{-1}}$はボルツマン定数である.
+水素負イオンにおいて,電荷は$Z=1$, 質量は水素の原子量が$1$であることからアボガドロ数$N_A$を用いて
+\begin{align}
+  \frac{1}{N_A}\times10^{-3}=1.660\times10^{-27}\ \si{\kilo\gram}
+\end{align}
+である.したがって$T=1\ \si{\electronvolt}$, $B=0.1\ \si{\milli\tesla}$のときのサイクロトロン半径は
+\begin{align}
+    r&=\frac{\sqrt{2\times1.660\times10^{-27}\times1.602\times10^{-19}\times1}}{1\times1.602\times10^{-19}\times0.1\times10^{-3}}=1.44\ \si{\metre}
+\end{align}
+$B=50\ \si{\milli\tesla}$のときは
+\begin{align}
+  r&=\frac{\sqrt{2\times1.660\times10^{-27}\times1.602\times10^{-19}\times1}}{1\times1.602\times10^{-19}\times50\times10^{-3}}=1.44\ \si{\metre}=2.88\times10^{-3}\ \si{\metre}
+\end{align}
+となる.
+\newpage
+\section{}
+磁場が空間勾配を持つとき,正に帯電したイオンは${\bm B}\times\nabla {\bm B}$の方向に,負に帯電したイオンは逆方向にドリフトする.
+したがって図\ref{fig:q2.png}のように$+x$方向の磁場を$-z$方向に勾配させたとき,水素(正)イオンは$+y$方向(紙面奥)へドリフトし,
+水素負イオンは$-y$方向(紙面手前)にドリフトする.
+\mfig[width=4cm]{q2.png}{磁場とその空間勾配}
+\end{document}
