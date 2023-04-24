@@ -1,0 +1,220 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+\numberwithin{equation}{section}
+
+\begin{document}
+\title{レーザー物理学 レポートNo.2}
+\author{82311971 佐々木良輔}
+\date{}
+\maketitle
+\setcounter{section}{3}
+\section*{問3}
+$E_y,\ B_x,\ B_y,\ B_z$はぞれぞれ${\rm e}^{-i\omega t}$という項を持つとする.すなわち
+\begin{align}
+  \frac{\partial E_y}{\partial t}=-i\omega E_y
+\end{align}
+であり$B_x,\ B_y,\ B_z$についても同様である.ここでMaxwell方程式${\rm rot}\vec{E}=-\partial \vec{B}/\partial t$から
+\begin{align}
+  \label{rotE}
+  \left\{
+    \begin{array}[1]{r}
+        -\cfrac{\partial E_y}{\partial z}=i\omega B_x\\
+        \cfrac{\partial E_x}{\partial z}=i\omega B_y\\
+        \cfrac{\partial E_y}{\partial x}-\cfrac{\partial E_x}{\partial y}=i\omega B_z
+    \end{array}
+  \right.
+\end{align}
+また${\rm rot}\vec{B}=\varepsilon_0\mu_0\partial \vec{E}/\partial t$から
+\begin{align}
+  \label{rotB}
+  \left\{
+    \begin{array}[1]{l}
+      \cfrac{\partial B_z}{\partial y}-\cfrac{\partial B_y}{\partial z}=-i\omega\varepsilon_0\mu_0E_x\\
+      \cfrac{\partial B_x}{\partial z}-\cfrac{\partial B_z}{\partial x}=-i\omega\varepsilon_0\mu_0E_y\\
+      \cfrac{\partial B_y}{\partial x}-\cfrac{\partial B_x}{\partial y}=0
+    \end{array}
+  \right.
+\end{align}
+である.ただし$E_z=0$を用いた.
+まず(\ref{rotE}) 第2式から
+\begin{align}
+  \label{By}
+  \begin{split}
+    B_y
+    &=\frac{1}{i\omega}\frac{\partial E_x}{\partial z}\\
+    &=\frac{1}{i\omega}\left(\frac{\partial u}{\partial z}{\rm e}^{i(kz-\omega t)}+iku{\rm e}^{i(kz-\omega t)}\right)\\
+    &=\frac{{\rm e}^{i(kz-\omega t)}}{i\omega}\left(\frac{\partial u}{\partial z}+iku\right)
+  \end{split}
+\end{align}
+である.
+次に(\ref{rotB}) 第3式に(\ref{By})を代入し
+\begin{align}
+  \begin{split}
+    \frac{\partial B_x}{\partial y}&=\frac{\partial B_y}{\partial x}\\
+    &=\frac{1}{i\omega}\left(\frac{\partial^2u}{\partial x\partial z}+ik\frac{\partial u}{\partial x}\right){\rm e}^{i(kz-\omega t)}
+  \end{split}
+\end{align}
+両辺を$y$で積分し
+\begin{align}
+  \label{Bx}
+  B_x=\frac{{\rm e}^{i(kz-\omega t)}}{i\omega}\int dy\left(\frac{\partial^2u}{\partial x\partial z}+ik\frac{\partial u}{\partial x}\right)
+\end{align}
+である.
+次に(\ref{rotE}) 第1式に(\ref{Bx})を代入し
+\begin{align}
+    \frac{\partial E_y}{\partial z}=-{\rm e}^{i(kz-\omega t)}\int dy\left(\frac{\partial^2u}{\partial x\partial z}+ik\frac{\partial u}{\partial x}\right)
+\end{align}
+両辺を$z$で積分し
+\begin{align}
+  \label{Ey}
+  E_y=-\int dz\ {\rm e}^{i(kz-\omega t)}\int dy\left(\frac{\partial^2u}{\partial x\partial z}+ik\frac{\partial u}{\partial x}\right)
+\end{align}
+である.
+次に(\ref{rotE}) 第3式に(\ref{Ey})を代入し
+\begin{align}
+  \begin{split}
+    i\omega B_z&=-\frac{\partial}{\partial x}\left(\int dz\ {\rm e}^{i(kz-\omega t)}\int dy\left(\frac{\partial^2u}{\partial x\partial z}+ik\frac{\partial u}{\partial x}\right)\right)
+    -\frac{\partial u}{\partial y}{\rm e}^{i(kz-\omega t)}\\
+  \end{split}
+\end{align}
+以下では積分と偏微分が交換可能であるとする.
+\begin{align}
+  \begin{split}
+    B_z&=-\frac{1}{i\omega}\left(\int dz\ {\rm e}^{i(kz-\omega t)}\int dy\left(
+      \frac{\partial^3u}{\partial x^2\partial z}+ik\frac{\partial^2u}{\partial x^2}
+    \right)+\frac{\partial u}{\partial y}{\rm e}^{i(kz-\omega t)}\right)
+  \end{split}
+\end{align}
+となる.以上から
+\begin{align}
+  \vec{E}=\left(
+    \begin{array}[1]{c}
+      \displaystyle
+      u(x,y,z){\rm e}^{i(kz-\omega t)}\\
+      \displaystyle
+      -\int dz\ {\rm e}^{i(kz-\omega t)}\int dy\left(\frac{\partial^2u}{\partial x\partial z}+ik\frac{\partial u}{\partial x}\right)\\
+      0
+    \end{array}
+  \right)
+\end{align}
+\begin{align}
+  \vec{B}=\left(
+    \begin{array}[1]{c}
+      \displaystyle
+      \frac{{\rm e}^{i(kz-\omega t)}}{i\omega}\int dy\left(\frac{\partial^2u}{\partial x\partial z}+ik\frac{\partial u}{\partial x}\right)\\
+      \displaystyle
+      \frac{{\rm e}^{i(kz-\omega t)}}{i\omega}\left(\frac{\partial u}{\partial z}+iku\right)\\
+      \displaystyle
+      -\frac{1}{i\omega}\left(\int dz\ {\rm e}^{i(kz-\omega t)}\int dy\left(
+      \frac{\partial^3u}{\partial x^2\partial z}+ik\frac{\partial^2u}{\partial x^2}
+      \right)+\frac{\partial u}{\partial y}{\rm e}^{i(kz-\omega t)}\right)\\
+    \end{array}
+  \right)
+\end{align}
+を得る.ここで電荷$\rho=0$であることから${\rm div}\vec{E}=0$となることを確認する.
+\begin{align}
+  \frac{\partial E_x}{\partial x}=\frac{\partial u}{\partial x}{\rm e}^{i(kz-\omega t)}
+\end{align}
+\begin{align}
+  \label{dEy/dy}
+  \begin{split}
+    \frac{\partial E_y}{\partial y}&=-\frac{\partial}{\partial y}\int dz\ {\rm e}^{i(kz-\omega t)}\int dy\left(\frac{\partial^2u}{\partial x\partial z}+ik\frac{\partial u}{\partial x}\right)\\
+    &=-\int dz\ {\rm e}^{i(kz-\omega t)}\frac{\partial}{\partial y}\int dy\left(\frac{\partial^2u}{\partial x\partial z}+ik\frac{\partial u}{\partial x}\right)\\
+    &=-\int dz\ {\rm e}^{i(kz-\omega t)}\frac{\partial^2u}{\partial x\partial z}-\int dz\ {\rm e}^{i(kz-\omega t)}ik\frac{\partial u}{\partial x}\\
+  \end{split}
+\end{align}
+ここで最右辺 第1項について部分積分を実行すると
+\begin{align}
+  \begin{split}
+    \int dz\ {\rm e}^{i(kz-\omega t)}\frac{\partial^2u}{\partial x\partial z}={\rm e}^{i(kz-\omega t)}\frac{\partial u}{\partial x}-\int dz\ ik{\rm e}^{i(kz-\omega t)}\frac{\partial u}{\partial x}
+  \end{split}
+\end{align}
+したがって(\ref{dEy/dy})は
+\begin{align}
+  \begin{split}
+    \frac{\partial E_y}{\partial y}&=-\frac{\partial u}{\partial x}{\rm e}^{i(kz-\omega t)}+\int dz\ ik{\rm e}^{i(kz-\omega t)}\frac{\partial u}{\partial x}-\int dz\ {\rm e}^{i(kz-\omega t)}ik\frac{\partial u}{\partial x}\\
+    &=-\frac{\partial u}{\partial x}{\rm e}^{i(kz-\omega t)}
+  \end{split}
+\end{align}
+\begin{align}
+  \frac{\partial E_z}{\partial z}=0
+\end{align}
+以上から
+\begin{align}
+  {\rm div}\vec{E}=\frac{\partial E_x}{\partial x}+\frac{\partial E_y}{\partial y}+\frac{\partial E_z}{\partial z}=0
+\end{align}
+を得る.また${\rm div}\vec{B}=0$についても同様に確認する.
+\begin{align}
+  \begin{split}
+    \frac{\partial B_x}{\partial x}&=\frac{\partial}{\partial x}\frac{{\rm e}^{i(kz-\omega t)}}{i\omega}\int dy\left(\frac{\partial^2u}{\partial x\partial z}+ik\frac{\partial u}{\partial x}\right)\\
+    &=\frac{{\rm e}^{i(kz-\omega t)}}{i\omega}\int dy\left(\frac{\partial^3u}{\partial x^2\partial z}+ik\frac{\partial^2 u}{\partial x^2}\right)
+  \end{split}
+\end{align}
+\begin{align}
+  \begin{split}
+    \frac{\partial B_y}{\partial y}&=\frac{{\rm e}^{i(kz-\omega t)}}{i\omega}\left(\frac{\partial^2 u}{\partial z\partial y}+ik\frac{\partial u}{\partial y}\right)
+  \end{split}
+\end{align}
+\begin{align}
+  \begin{split}
+    \frac{\partial B_z}{\partial z}&=-\frac{1}{i\omega}\frac{\partial}{\partial z}\left(\int dz\ {\rm e}^{i(kz-\omega t)}\int dy\left(
+    \frac{\partial^3u}{\partial x^2\partial z}+ik\frac{\partial^2u}{\partial x^2}
+    \right)+\frac{\partial u}{\partial y}{\rm e}^{i(kz-\omega t)}\right)\\
+    &=-\frac{{\rm e}^{i(kz-\omega t)}}{i\omega}\int dy\left(
+    \frac{\partial^3u}{\partial x^2\partial z}+ik\frac{\partial^2u}{\partial x^2}
+    \right)
+    -\frac{1}{i\omega}\left(
+    \frac{\partial^2 u}{\partial y\partial z}{\rm e}^{i(kz-\omega t)}
+    +ik\frac{\partial u}{\partial y}{\rm e}^{i(kz-\omega t)}
+    \right)\\
+    &=-\frac{{\rm e}^{i(kz-\omega t)}}{i\omega}\left(
+    \int dy\left(
+    \frac{\partial^3u}{\partial x^2\partial z}+ik\frac{\partial^2u}{\partial x^2}
+    \right)
+    +\frac{\partial^2 u}{\partial y\partial z}+ik\frac{\partial u}{\partial y}
+    \right)
+  \end{split}
+\end{align}
+以上から
+\begin{align}
+  {\rm div}\vec{B}=\frac{\partial B_x}{\partial x}+\frac{\partial B_y}{\partial y}+\frac{\partial B_z}{\partial z}=0
+\end{align}
+を得る.
+\setcounter{section}{4}
+\section*{問4}
+\end{document}
