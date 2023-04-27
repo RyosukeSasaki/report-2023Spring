@@ -38,7 +38,7 @@
 
 \begin{document}
 \title{応用プラズマ工学}
-\author{佐々木良輔}
+\author{82311971 佐々木良輔}
 \date{}
 \maketitle
 \section{}
@@ -63,7 +63,47 @@ $B=50\ \si{\milli\tesla}$のときは
 \newpage
 \section{}
 磁場が空間勾配を持つとき,正に帯電したイオンは${\bm B}\times\nabla {\bm B}$の方向に,負に帯電したイオンは逆方向にドリフトする.
-したがって図\ref{fig:q2.png}のように$+x$方向の磁場を$-z$方向に勾配させたとき,水素(正)イオンは$+y$方向(紙面奥)へドリフトし,
-水素負イオンは$-y$方向(紙面手前)にドリフトする.
-\mfig[width=4cm]{q2.png}{磁場とその空間勾配}
-\end{document}
+したがって図\ref{fig:q2.png}のように$+x$方向の磁場を$-z$方向に勾配させたとき,水素(正)イオンは
+\begin{align}
+  \hat{\bm x}\times-\hat{\bm z}=\hat{\bm y}
+\end{align}
+より$+y$方向(紙面奥)へドリフトし,
+逆に水素負イオンは$-y$方向(紙面手前)にドリフトする.ただし$\hat{\bm i}$は$i$方向の単位ベクトルである.
+\mfig[width=6cm]{q2.png}{磁場とその空間勾配\cite{hatayamaPresentStatusNumerical2018}}
+\section{}
+Plasma Gridから取り出される電流密度分布はExtraction Regionでの粒子数密度$n$に比例すると考える.
+またExtraction Regionでの粒子数密度は$x$, $z$に依存せず,$y$にのみ依存すると考える.
+イオン粒子間の相互作用を無視すれば,その粒子数密度$n(y)$は磁場勾配ドリフトと拡散の平衡により定常状態に至ると考えられる.
+ここで磁場勾配によるドリフト力を$f$として,イオンの移動度を$\mu$とすれば,ドリフトによる流束は
+\begin{align}
+  j_{\rm drift}=\mu fn
+\end{align}
+また拡散による流束は拡散係数$D$を用いて
+\begin{align}
+  j_{\rm diff}=-D\frac{dn}{dy}
+\end{align}
+で与えられる.よって全体の流束は
+\begin{align}
+  j=-D\frac{dn}{dy}+\mu fn
+\end{align}
+したがって拡散方程式は
+\begin{align}
+  \frac{dn}{dt}=\frac{d}{dy}\left(D\frac{dn}{dy}-\mu fn\right)
+\end{align}
+であり,定常状態においては$dn/dt=0$より
+\begin{align}
+  D\frac{dn}{dy}=\mu fn
+\end{align}
+となる.またイオン源壁面での発散が0であるべきことから, Neumann境界条件
+\begin{align}
+  \left.\frac{dn}{dy}\right|_{壁面}=0
+\end{align}
+のもとで(10)を解くことで粒子数密度分布が計算される.
+
+定性的には,磁場勾配ドリフトが$-y$方向に存在することから,水素負イオン密度は$-y$側で大きくなり,
+これが$+y$側に拡散することで定常状態に至ると考えられる.
+したがって電流密度分布も同様に$-y$側で大きくなり, $+y$側では小さくなると考えられる.
+実際に電流密度分布は図\ref{fig:q3.png}青点のようになり$-y$側で大きくなっている.\cite{hatayamaPresentStatusNumerical2018}
+\mfig[width=6cm]{q3.png}{$y$方向の電流密度分布の実験値.青点がPG filterの場合.赤線はtent filterの場合.\cite{hatayamaPresentStatusNumerical2018}}
+\bibliography{plasma.bib}
+\end{document}reporepo
