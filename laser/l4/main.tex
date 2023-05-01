@@ -1,0 +1,204 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{レーザー物理学 レポート No.3}
+\author{82311971 佐々木良輔}
+\date{}
+\maketitle
+\section*{問5(1)}
+凸面と凹面の曲率が等しいことから$R_1=R_2=R>0$, したがって光線行列は
+\begin{align}
+  \begin{split}
+    &\left(
+      \begin{array}[2]{cc}
+        1-\cfrac{L(n_2-n_1)}{n_2R_1}&\cfrac{L}{n_2}\\
+        (n_2-n_1)\left(\cfrac{1}{R_2}-\cfrac{1}{R_1}\right)-\cfrac{L(n_2-n_1)^2}{n_2R_1R_2}&1+\cfrac{L(n_2-n_1)}{n_2R_2}
+      \end{array}
+    \right)\\
+    =&\left(
+      \begin{array}[2]{cc}
+        1-\cfrac{L(n_2-n_1)}{n_2R}&\cfrac{L}{n_2}\\
+        -\cfrac{L(n_2-n_1)^2}{n_2R^2}&1+\cfrac{L(n_2-n_1)}{n_2R}
+      \end{array}
+    \right)
+  \end{split}
+\end{align}
+この光学素子に$w_1$, $\theta=0$の平行光を入射したとき,出射光$w_2$, $\theta$は
+\begin{align*}
+  \renewcommand\arraystretch{2}
+  \begin{split}
+    \begin{pmatrix}
+      w_2\\n_1\theta
+    \end{pmatrix}
+    &=
+    \begin{pmatrix}
+      1-\cfrac{L(n_2-n_1)}{n_2R}&\cfrac{L}{n_2}\\
+      -\cfrac{L(n_2-n_1)^2}{n_2R^2}&1+\cfrac{L(n_2-n_1)}{n_2R}
+    \end{pmatrix}
+    \begin{pmatrix}
+      w_1\\0
+    \end{pmatrix}
+  \end{split}
+\end{align*}
+\begin{align}
+  \begin{split}
+    \therefore\ w_2&=w_1\left(1-\cfrac{L(n_2-n_1)}{n_2R}\right)\\
+    \theta&=-w_1\frac{L(n_2-n_1)^2}{n_2n_1R^2}
+  \end{split}
+\end{align}
+ここで図\ref{fig:laser_04_q51.pdf}のようにメニスカスレンズの出射面を$x=0$におくと,出射光は
+\begin{align}
+  y=w_2+\theta x
+\end{align}
+という直線で表される.ただし$w_1$が大きい場合は図\ref{fig:laser_04_q51.pdf}の黄点線のようにレンズの曲率による変位$\delta$が大きくなるので,
+ここでは$w_1$が十分小さいものとする.
+ここで$x$切片は
+\begin{align}
+  \begin{split}
+    0&=w_2+\theta x\\
+    0&=w_1\left(1-\cfrac{L(n_2-n_1)}{n_2R}-\cfrac{L(n_2-n_1)^2}{n_2n_1R^2}x\right)\\
+    \therefore\ x&=\cfrac{n_2n_1R^2}{L(n_2-n_1)^2}\left(1-\cfrac{L(n_2-n_1)}{n_2R}\right)
+  \end{split}
+\end{align}
+となり$x$切片は定数となる.
+ここで$1-L(n_2-n_1)/n_2R\geq0$のとき, $w_1$によらず平行光は正の$x$座標で収束することから,メニスカスレンズは凸レンズとして機能する.
+一方で$1-L(n_2-n_1)/n_2R<0$のとき, $w_1$によらず平行光は負の$x$座標で収束することから,メニスカスレンズは凹レンズとして機能する.
+\mfig[width=12cm]{laser_04_q51.pdf}{メニスカスレンズに平行光を入れた場合の模式図}
+\section*{問5(2)}
+共焦点共振器では焦点が互いの鏡の中心にあることから,平行光は図\ref{fig:laser_04_q52.pdf} ①のように
+向かいの鏡の中心に向けて反射する.次に②のように鏡の中心で反射した光線は上下対称に反射するため,③の反射で再び平行光に戻る.
+③で反射された平行光は④で再び焦点を通るように反射する.以降同様の反射を永遠に繰り返すことができる.
+\mfig[width=10cm]{laser_04_q52.pdf}{共焦点共振器の模式図}
+\section*{問5(3)}
+以下では$n=1$とする.
+共振器内を一往復するときの光線行列は
+\begin{align}
+  \begin{split}
+    &\begin{pmatrix}
+      1&0\\
+      -2/R_1&-1
+    \end{pmatrix}
+    \begin{pmatrix}
+      1&-L\\
+      0&1
+    \end{pmatrix}
+    \begin{pmatrix}
+      1&0\\
+      -2/R_2&-1
+    \end{pmatrix}
+    \begin{pmatrix}
+      1&L\\
+      0&1
+    \end{pmatrix}\\
+    =&\begin{pmatrix}
+      1&0\\
+      -2/R_1&-1
+    \end{pmatrix}
+    \begin{pmatrix}
+      1&-L\\
+      0&1
+    \end{pmatrix}
+    \begin{pmatrix}
+      1&L\\
+      -2/R_2&-2L/R_2-1
+    \end{pmatrix}\\
+    =&\frac{1}{R_2}\begin{pmatrix}
+      1&0\\
+      -2/R_1&-1
+    \end{pmatrix}
+    \begin{pmatrix}
+      R_2+2L&2(R_2+L)L\\
+      -2&-2L-R_2
+    \end{pmatrix}\\
+    =&\frac{1}{R_2}\begin{pmatrix}
+      R_2+2L&2(R_2+L)L\\
+      -2\cfrac{R_2-R_1+2L}{R_1}&-\cfrac{4L^2+4R_2L-2R_1L-R_1R_2}{R_1}
+    \end{pmatrix}
+  \end{split}
+\end{align}
+またABCD則において,ガウスビームが安定であるためには$q'=q$であるべきなので
+\begin{eqnarray}
+  &q=\cfrac{Aq+B}{Cq+D}\nonumber\\
+  \iff&0=B\left(\frac{1}{q}\right)^2+\frac{1}{q}(A-D)-C\nonumber\\
+  \iff&\cfrac{1}{q}=\frac{D-A\pm\sqrt{(A-D)^2+4BC}}{2B}
+\end{eqnarray}
+ここで$A,B,C,D$それぞれは実数であるが, $1/q$が複素数であるべきなので$(A-D)^2+4BC<0$とする.
+ここで
+\begin{align}
+  \frac{1}{q}=\frac{1}{R}+\frac{2i}{kw^2}
+\end{align}
+より
+\begin{align}
+  \frac{D-A}{2B}&=\frac{1}{R}\\
+  \pm\sqrt{\left(\frac{A-D}{2B}\right)^2+\frac{C}{B}}&=\frac{2i}{kw^2}
+\end{align}
+となる.ただし$R$はミラー1上でのガウスビームの曲率, $k$は波数, $w$はビーム径である.
+(8)式から
+\begin{align}
+  \begin{split}
+    \frac{1}{R}&=\frac{1}{4(R_2+L)L}\left(-\cfrac{4L^2+4R_2L-2R_1L-R_1R_2}{R_1}-(R_2+2L)\right)\\
+    &=\frac{1}{4(R_2+L)L}\left(-\cfrac{4L^2+4R_2L-2R_1L-R_1R_2}{R_1}-\frac{R_1R_2+2R_1L}{R_1}\right)\\
+    &=\frac{1}{4(R_2+L)L}\frac{-4(L+R_2)L}{R_1}\\
+    &=\frac{1}{-R_1}
+  \end{split}
+\end{align}
+となる.また(9)式から
+\begin{eqnarray}
+  &\begin{split}
+    \frac{2i}{kw^2}&=\pm\sqrt{\left(\frac{A-D}{2B}\right)^2+\frac{C}{B}}\\
+    &=\pm\sqrt{\frac{1}{R_1^2}-\frac{R_2-R_1+2L}{R_1(R_2+L)L}}
+  \end{split}\nonumber\\
+  \iff&\frac{2}{kw^2}=\pm\sqrt{\frac{R_2-R_1+2L}{R_1(R_2+L)L}-\frac{1}{R_1^2}}
+\end{eqnarray}
+両辺の符号が一致すべきなので
+\begin{eqnarray}
+  &\frac{2}{kw^2}=\sqrt{\frac{R_2-R_1+2L}{R_1(R_2+L)L}-\frac{1}{R_1^2}}\nonumber\\
+  \iff&w^2=\frac{2}{k\sqrt{\frac{R_2-R_1+2L}{R_1(R_2+L)L}-\frac{1}{R_1^2}}}\nonumber\\
+  \iff&w=\sqrt{\frac{2}{k\sqrt{\frac{R_2-R_1+2L}{R_1(R_2+L)L}-\frac{1}{R_1^2}}}}
+\end{eqnarray}
+\bibliography{ref.bib}
+となる.以上からミラー1上でのガウスビームの曲率及びビーム径は
+\begin{align}
+  \begin{split}
+    |R|&=R_1\\
+    w&=\sqrt{\frac{2}{k\sqrt{\frac{R_2-R_1+2L}{R_1(R_2+L)L}-\frac{1}{R_1^2}}}}
+  \end{split}
+\end{align}
+となる.
+\end{document}
