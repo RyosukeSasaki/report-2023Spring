@@ -1,0 +1,180 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{レーザー物理学 レポート No.4}
+\author{82311971 佐々木良輔}
+\date{}
+\maketitle
+\section*{問6(1)}
+図\ref{fig:laser_05_q61.pdf}のようにミラーは屈折率$n_2>n_1$のガラスと金属の反射部からなるため,
+共振器内部での反射は固定端反射,共振器外部での反射は自由端反射となる.
+したがって反射光の振幅は$2kL=\phi$をもちいて
+\begin{align}
+  \begin{split}
+    E_r&=E_0e^{i(-kz-\omega t)}\left(r_1+t_1(-r_2)t_1e^{i\phi}
+    +t_1(-r_2)(-r_1)(-r_2)t_1e^{2i\phi}+\cdots\right)\\
+    &=E_0e^{i(-kz-\omega t)}\left(r_1-t_1^2r_2e^{i\phi}\sum_{n=0}^\infty\left(r_1r_2e^{i\phi}\right)^n\right)\\
+    &=E_0e^{i(-kz-\omega t)}\left(r_1-\frac{t_1^2r_2r^{i\phi}}{1-r_1r_2e^{i\phi}}\right)
+  \end{split}
+\end{align}
+となる.したがって
+\begin{align}
+  \begin{split}
+    \frac{|E_r|^2}{|E_0|^2}=&
+    \left(r_1-\frac{t_1^2r_2e^{i\phi}}{1-r_1r_2e^{i\phi}}\right)
+    \left(r_1-\frac{t_1^2r_2e^{-i\phi}}{1-r_1r_2e^{-i\phi}}\right)\\
+    =&r_1^2-r_1\left(
+      \frac{t_1^2r_2e^{i\phi}}{1-r_1r_2e^{i\phi}}+
+      \frac{t_1^2r_2e^{-i\phi}}{1-r_1r_2e^{-i\phi}}
+    \right)
+    +\frac{t_1^2r_2e^{i\phi}}{1-r_1r_2e^{i\phi}}
+    \frac{t_1^2r_2e^{-i\phi}}{1-r_1r_2e^{-i\phi}}\\
+    =&r_1^2-r_1\frac{t_1^2r_2e^{i\phi}\left(1-r_1r_2e^{-i\phi}\right)+
+    t_1^2r_2e^{-i\phi}\left(1-r_1r_2e^{i\phi}\right)}{\left(1-r_1r_2e^{i\phi}\right)\left(1-r_1r_2e^{-i\phi}\right)}\\
+    &+\frac{t_1^4r_2^2}{\left(1-r_1r_2e^{i\phi}\right)\left(1-r_1r_2e^{-i\phi}\right)}\\
+    =&r_1^2-r_1r_2t_1^2\frac{2\cos\phi-2r_1r_2}{1-2r_1r_2\cos\phi+r_1^2r_2^2}+
+    \frac{r_2^2t_1^4}{1-2r_1r_2\cos\phi+r_1^2r_2^2}\\
+    =&\frac{r_1^2\left(1-2r_1r_2\cos\phi+r_1^2r_2^2\right)-2r_1r_2t_1^2\cos\phi+2r_1^2r_2^2t_1^2+r_2^2t_1^4}
+    {1-2r_1r_2\cos\phi+r_1^2r_2^2}\\
+    =&\frac{r_1^2-2r_1^3r_2\cos\phi-2r_1r_2t_1^2\cos\phi+r_2^2(r_1^2+t_1^2)^2}{1-2r_1r_2\cos\phi+r_1^2r_2^2}\\
+    =&\frac{r_1^2+(r_1^2+t_1^2)\left(r_2^2(r_1^2+t_1^2)-2r_1r_2\cos\phi\right)}
+    {1-2r_1r_2\cos\phi+r_1^2r_2^2}\\
+    =&\frac{R_1+(R_1+T_1)\left(R_2(R_1+T_1)-2\sqrt{R_1R_2}\cos\phi\right)}{1-2\sqrt{R_1R_2}\cos\phi+R_1R_2}
+  \end{split}
+\end{align}
+したがって反射光強度は
+\begin{align}
+  \begin{split}
+    I_r&=\frac{\varepsilon_0c}{2}|E_r|^2\\
+    &=\frac{\varepsilon_0c}{2}|E_0^2|\frac{R_1+(R_1+T_1)\left(R_2(R_1+T_1)-2\sqrt{R_1R_2}\cos\phi\right)}{1-2\sqrt{R_1R_2}\cos\phi+R_1R_2}
+  \end{split}
+\end{align}
+となる.ここで$R+T=1$とすると
+\begin{align}
+  \begin{split}
+    \frac{|E_r|^2}{|E_0|^2}=&
+    \frac{R_1+R_2-2\sqrt{R_1R_2}\cos\phi}{1-2\sqrt{R_1R_2}\cos\phi+R_1R_2}
+  \end{split}
+\end{align}
+よって
+\begin{align}
+  \begin{split}
+    \frac{|E_r|^2}{|E_0|^2}+\frac{|E_t|^2}{|E_0|^2}=&
+    \frac{R_1+R_2-2\sqrt{R_1R_2}\cos\phi}{1-2\sqrt{R_1R_2}\cos\phi+R_1R_2}+
+    \frac{(1-R_1)(1-R_2)}{1-2\sqrt{R_1R_2}\cos\phi+R_1R_2}\\
+    =&1
+  \end{split}
+\end{align}
+したがって反射光強度と透過光強度の合計は
+\begin{align}
+  I_t+I_r=\frac{\varepsilon_0c}{2}|E_0|^2
+\end{align}
+となり,入射光強度と等しい.
+\mfig[width=6cm]{laser_05_q61.pdf}{共振器での反射の模式図}
+\section*{問6(2)}
+$R_1=R_2=R$のとき
+\begin{align}
+  \begin{split}
+    I=&\frac{I_{\rm in}T_1}{1-2R\cos\phi+R^2}\\
+    =&\frac{I_{\rm in}T_1}{1+R^2-2R\left(1-2\sin^2\frac{\phi}{2}\right)}\\
+    =&\frac{I_{\rm in}T_1}{(1-R)^2+4R\sin^2\frac{\phi}{2}}
+  \end{split}
+\end{align}
+より,強度の最大値は$I_{\rm in}T_1/(1-R)^2$である.
+したがって強度が半分になるとき
+\begin{eqnarray}
+  &\frac{I_{\rm in}T_1}{2(1-R)^2}=\frac{I_{\rm in}T_1}{(1-R)^2+4R\sin^2\frac{\phi}{2}}\nonumber\\
+  \iff&4R\sin^2\frac{\phi}{2}=(1-R)^2\nonumber\\
+  \iff&\sin\frac{\phi}{2}=\frac{1-R}{2\sqrt{R}}\nonumber\\
+\end{eqnarray}
+ここで$\phi/2\ll 1$として展開すると
+\begin{align}
+  \begin{split}
+    \frac{\phi}{2}&=\frac{1-R}{2\sqrt{R}}
+  \end{split}
+\end{align}
+ここで$\phi=2kL$, $k=\omega/c$より
+\begin{eqnarray}
+  &L\frac{\Delta\omega}{c}=\frac{1-R}{2\sqrt{R}}\nonumber\\
+  \iff&\Delta\omega=\frac{(1-R)c}{2L\sqrt{R}}
+\end{eqnarray}
+となる.次に${\rm FSR}=c/2L$より
+\begin{align}
+  F=\frac{\rm FSR}{2\Delta\nu}=\frac{\pi}{\Delta\omega}\frac{c}{2L}=\frac{\pi\sqrt{R}}{1-R}
+\end{align}
+である.また$R\simeq 1$より
+\begin{align}
+  Q=\frac{\omega_0}{2\Delta\omega}=\frac{\omega_0}{2}\frac{2L\sqrt{R}}{(1-R)c}=\frac{\omega_0L\sqrt{R}}{(1-R)c}\simeq\frac{\omega_0L}{(1-R)c}
+\end{align}
+である.一方でQ値の定義は
+\begin{align}
+  Q=2\pi\frac{共振器内のエネルギー}{1周期あたりのエネルギー損失}
+\end{align}
+であった.ここで共振器内のエネルギーは共振器の断面籍を$S$として
+\begin{align}
+  \frac{1}{2}\varepsilon_0|E|^2\times LS=\frac{1}{2}\varepsilon_0ILS=\frac{1}{2}\varepsilon_0\frac{TI_{\rm in}}{(1-R)^2}LS=\frac{1}{2}\varepsilon_0\frac{I_{\rm in}LS}{1-R}
+\end{align}
+また前問の結果から共振器から失われる光の強度は入射光強度$I_{\rm in}$に等しく,また$T=2\pi/\omega_0$より1周期あたりに共振器から失われるエネルギーは
+\begin{align}
+  \int^{2\pi/\omega_0}_0dt\frac{1}{2}c\varepsilon_0I_{\rm in}\times S=c\varepsilon_0\frac{\pi I_{\rm in}}{\omega_0}S
+\end{align}
+以上から
+\begin{align}
+  Q=2\pi\frac{\frac{1}{2}\varepsilon_0\frac{I_{\rm in}LS}{1-R}}{c\varepsilon_0\frac{\pi I_{\rm in}}{\omega_0}S}=\frac{\omega_0 L}{c(1-R)}
+\end{align}
+となる.
+\section*{問7(1)}
+ミラー1での強度反射率,強度透過率が$R$, $T$, 光が往復する間の強度損失が$\kappa$のとき,
+電場振幅は図\ref{fig:laser_05_q71.pdf}のようになる.
+これは前問において$r_1=\sqrt{R}$, $r_2=\sqrt{\kappa}$とした場合に等しい.
+したがって共振器内の光強度は,共鳴状態において
+\begin{align}
+  I=\frac{(1-R)I_{\rm in}}{(1-\sqrt{\kappa R})^2}
+\end{align}
+となる.ここで
+\begin{align}
+  \frac{dI}{dR}=\frac{\kappa-\sqrt{\kappa R}}{\sqrt{\kappa R}(1-\sqrt{\kappa R})^3}I_{\rm in}
+\end{align}
+である. $0\leq R\leq 1$, $0\leq \kappa\leq 1$より$0\leq\sqrt{\kappa R}\leq 1$なので
+$\sqrt{\kappa R}(1-\sqrt{\kappa R})^3>0$である.
+したがって$R\leq\kappa$のとき$dI/dR\geq0$, $\kappa<R$のとき$dI/dR<0$である.
+したがって$R=\kappa$において$I$は最大値を取る.
+\mfig[width=8cm]{laser_05_q71.pdf}{損失$\kappa$のときの電場}
+\section*{問7(2)}
+\end{document}
