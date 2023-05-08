@@ -177,4 +177,61 @@ $\sqrt{\kappa R}(1-\sqrt{\kappa R})^3>0$である.
 したがって$R=\kappa$において$I$は最大値を取る.
 \mfig[width=8cm]{laser_05_q71.pdf}{損失$\kappa$のときの電場}
 \section*{問7(2)}
+ミラー1の位置を$z=0$, ミラー2の位置を$z=L$とする.このとき
+$z=0,\ L$で電場とその一階微分が連続なことから$ikL=\phi$を用いて
+\begin{eqnarray}
+  &\begin{cases}
+      E_i+E_r&=E_{m1}+E_{m2}\\
+      E_i-E_r&=E_{m1}-E_{m2}\\
+      E_te^\phi&=E_{m1}e^\phi+E_{m2}e^{-\phi}\\
+      E_te^\phi&=E_{m1}e^\phi-E_{m2}e^{-\phi}
+  \end{cases}\nonumber\\
+  \iff&\begin{pmatrix}
+    -1&1&1&0\\
+    1&1&-1&0\\
+    0&e^\phi&e^{-\phi}&-e^\phi\\
+    0&e^\phi&-e^{-\phi}&-e^\phi\\
+  \end{pmatrix}
+  \begin{pmatrix}
+    E_r\\E_{m1}\\E_{m2}\\E_t\\
+  \end{pmatrix}
+  =\begin{pmatrix}
+    E_i\\E_i\\0\\0\\
+  \end{pmatrix}
+\end{eqnarray}
+拡大係数行列は
+\begin{align}
+  \begin{pmatrix}
+    -1&1&1&0&E_i\\
+    1&1&-1&0&E_i\\
+    0&e^\phi&e^{-\phi}&-e^\phi&0\\
+    0&e^\phi&-e^{-\phi}&-e^\phi&0\\
+  \end{pmatrix}
+\end{align}
+行基本変形により
+\begin{align}
+  \begin{pmatrix}
+    -1&0&0&0&0\\
+    0&2&0&0&2E_i\\
+    0&0&e^{-\phi}&0&0\\
+    0&0&0&-2e^\phi&-2e^\phi E_i\\
+  \end{pmatrix}
+\end{align}
+したがって
+\begin{align}
+  \begin{pmatrix}
+    E_r\\E_{m1}\\E_{m2}\\E_t\\
+  \end{pmatrix}=
+  \begin{pmatrix}
+    0\\E_i\\0\\E_i\\
+  \end{pmatrix}
+\end{align}
+以上から反射光強度$I_r$,及び透過光強度$I_t$は
+\begin{align}
+  \begin{split}
+    I_r&=0\\
+    I_t&=|E_i|^2
+  \end{split}
+\end{align}
+となる.
 \end{document}
