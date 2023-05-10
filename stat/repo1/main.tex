@@ -1,0 +1,197 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{統計物理学 No.1}
+\author{82311971 佐々木良輔}
+\date{}
+\maketitle
+\section*{超高密度符号化}
+%超高密度符号化では以下の手順に従いAliceからBobへ情報を送信する.
+%\begin{enumerate}
+%  \item Bell状態にある2量子ビット(A,B)を用意し, AliceにA, BobにBを渡しておく
+%  \item Aliceは送信したい2古典ビット(a,b)に応じて手元の量子ビットAを操作する
+%  \item Aliceは操作されたAをBobに渡す
+%  \item Bobは手元の(A,B)に適当な操作をし,測定することで(a,b)を得る
+%\end{enumerate}
+%ここでBobは1量子ビットAのみをAliceから受け取ったのに対して,
+%2古典ビット(a,b)の情報を得ている.これが超高密度符号化である.
+AliceとBobはもつれた量子ビット$(A,B)$のうちそれぞれ1つを持っている.
+Aliceは送信したい2古典ビットに応じて異なる操作を量子ビット$A$に施し,これをBobに渡す.
+Bobはもともと手元にあった量子ビット$B$とAliceから渡された量子ビット$A$に適切な操作を行うことで,
+元の古典ビットabの情報を得ることが出来る.
+ここでAliceはBobに対して1量子ビットしか送信していないが,Bobは2古典ビット分の情報を得ており,
+これを超高密度符号化と呼ぶ.
+超高密度符号化は具体的には以下の手順で行われる.
+\begin{enumerate}
+  \item Bell状態$\frac{1}{\sqrt{2}}(|00\rangle+|11\rangle)$にある量子ビット$(A,B)$をAliceとBobに渡す.
+  \item Aliceは送信したい古典ビット$ab$に応じて以下の操作を$A$に施す.
+  \begin{enumerate}
+    \item $ab=(00)_2$のとき, Aliceは$A$に何もしない.このとき$(A,B)$は
+    \begin{align}
+      |{\rm Bell}\rangle=\frac{1}{\sqrt{2}}(|00\rangle+|11\rangle)
+    \end{align}
+    である.
+    \item $ab=(01)_2$のとき, Aliceは$A$に$\sigma_x$を適用する.
+    $\sigma_x$を$|0\rangle$, $|1\rangle$に適用したとき,それぞれ
+    \begin{align}
+      \begin{split}
+        &\sigma_x|0\rangle=\begin{pmatrix}
+          0&1\\1&0
+        \end{pmatrix}\begin{pmatrix}
+          1\\0
+        \end{pmatrix}=|1\rangle,\\
+        &\sigma_x|1\rangle=\begin{pmatrix}
+          0&1\\1&0
+        \end{pmatrix}\begin{pmatrix}
+          0\\1
+        \end{pmatrix}=|0\rangle
+      \end{split}
+    \end{align}
+    となるため操作後の$(A,B)$は
+    \begin{align}
+      \sigma_x|{\rm Bell}\rangle=\frac{1}{\sqrt{2}}(|10\rangle+|01\rangle)
+    \end{align}
+    である.
+    \newpage
+    \item $ab=(10)_2$のとき, Aliceは$A$に$\sigma_z$を適用する.
+    $\sigma_z$を$|0\rangle$, $|1\rangle$に適用したとき,それぞれ
+    \begin{align}
+      \begin{split}
+        &\sigma_z|0\rangle=\begin{pmatrix}
+          1&0\\0&-1
+        \end{pmatrix}\begin{pmatrix}
+          1\\0
+        \end{pmatrix}=|0\rangle,\\
+        &\sigma_z|1\rangle=\begin{pmatrix}
+          1&0\\0&-1
+        \end{pmatrix}\begin{pmatrix}
+          0\\1
+        \end{pmatrix}=-|1\rangle
+      \end{split}
+    \end{align}
+    となるため操作後の$(A,B)$は
+    \begin{align}
+      \sigma_z|{\rm Bell}\rangle=\frac{1}{\sqrt{2}}(|00\rangle-|11\rangle)
+    \end{align}
+    である.
+    \item $ab=(11)_2$のとき, Aliceは$A$に$\sigma_z\sigma_x$を適用する.
+    $\sigma_z\sigma_x$を$|0\rangle$, $|1\rangle$に適用したとき,それぞれ
+    \begin{align}
+      \begin{split}
+        &\sigma_z\sigma_x|0\rangle=-|1\rangle,\\
+        &\sigma_z\sigma_x|1\rangle=|0\rangle
+      \end{split}
+    \end{align}
+    となるため操作後の$(A,B)$は
+    \begin{align}
+      \sigma_z\sigma_x|{\rm Bell}\rangle=\frac{1}{\sqrt{2}}(-|10\rangle+|01\rangle)
+    \end{align}
+    である.
+  \end{enumerate}
+  \item Bobは2の操作を施されたAを受け取り, $(A,B)$にCNOTを適用する.
+  (a)〜(d)それぞれについてCNOTを適用すると以下のようになる.
+  \begin{enumerate}
+    \item \begin{align}
+      {\rm CNOT}\frac{1}{\sqrt{2}}(|00\rangle+|11\rangle)=\frac{1}{\sqrt{2}}(|0\rangle+|1\rangle)|0\rangle
+    \end{align}
+    \item \begin{align}
+      {\rm CNOT}\frac{1}{\sqrt{2}}(|10\rangle+|01\rangle)=\frac{1}{\sqrt{2}}(|1\rangle+|0\rangle)|1\rangle
+    \end{align}
+    \item \begin{align}
+      {\rm CNOT}\frac{1}{\sqrt{2}}(|00\rangle-|11\rangle)=\frac{1}{\sqrt{2}}(|0\rangle-|1\rangle)|0\rangle
+    \end{align}
+    \item \begin{align}
+      {\rm CNOT}\frac{1}{\sqrt{2}}(-|10\rangle+|01\rangle)=\frac{1}{\sqrt{2}}(-|1\rangle+|0\rangle)|1\rangle
+    \end{align}
+  \end{enumerate}
+  \newpage
+  \item Bobは$A$にHadamard変換を行う.
+  (a)〜(d)それぞれについてHadamard変換をすると以下のようになる.
+  \begin{enumerate}
+    \item $\frac{1}{\sqrt{2}}(|0\rangle+|1\rangle)$にHadamard変換を行うと
+    \begin{align}
+      \frac{1}{\sqrt{2}}\begin{pmatrix}
+        1&1\\1&-1
+      \end{pmatrix}
+      \frac{1}{\sqrt{2}}(|0\rangle+|1\rangle)=\frac{1}{2}\begin{pmatrix}
+        1&1\\1&-1
+      \end{pmatrix}\begin{pmatrix}
+        1\\1
+      \end{pmatrix}=|0\rangle
+    \end{align}
+    よって$(A,B)$は
+    \begin{align}
+      H\frac{1}{\sqrt{2}}(|0\rangle+|1\rangle)|0\rangle=|00\rangle
+    \end{align}
+    である.
+    \item $\frac{1}{\sqrt{2}}(|1\rangle+|0\rangle)$にHadamard変換を行うと$|0\rangle$である.
+    よって$(A,B)$は
+    \begin{align}
+      H\frac{1}{\sqrt{2}}(|0\rangle+|1\rangle)|1\rangle=|01\rangle
+    \end{align}
+    である.
+    \item $\frac{1}{\sqrt{2}}(|0\rangle-|1\rangle)$にHadamard変換を行うと
+    \begin{align}
+      \frac{1}{\sqrt{2}}\begin{pmatrix}
+        1&1\\1&-1
+      \end{pmatrix}
+      \frac{1}{\sqrt{2}}(|0\rangle-|1\rangle)=\frac{1}{2}\begin{pmatrix}
+        1&1\\1&-1
+      \end{pmatrix}\begin{pmatrix}
+        1\\-1
+      \end{pmatrix}=|1\rangle
+    \end{align}
+    よって$(A,B)$は
+    \begin{align}
+      H\frac{1}{\sqrt{2}}(|0\rangle-|1\rangle)|0\rangle=|10\rangle
+    \end{align}
+    である.
+    \item $\frac{1}{\sqrt{2}}(-|1\rangle+|0\rangle)$にHadamard変換を行うと$|1\rangle$である.
+    よって$(A,B)$は
+    \begin{align}
+      H\frac{1}{\sqrt{2}}(-|1\rangle+|0\rangle)|1\rangle=|11\rangle
+    \end{align}
+    である.
+  \end{enumerate}
+  \item 以上の操作で$ab$対応する操作を行った$(A,B)$の状態は$|ab\rangle$となった.
+  したがって$(A,B)$を測定することで$ab$を得る.
+\end{enumerate}
+以上の操作は量子回路では図のように表される.
+\bibliography{ref.bib}
+\end{document}
