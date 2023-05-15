@@ -1,0 +1,96 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{レーザー物理学 レポート No.5}
+\author{82311971 佐々木良輔}
+\date{}
+\maketitle
+\section*{問8(1)}
+$\hbar\omega=\varepsilon$とする.分配関数は
+\begin{align}
+  Z=\sum_{n=0}^\infty e^{-\beta n\varepsilon}
+\end{align}
+なので$n\varepsilon$の期待値は
+\begin{align}
+  \begin{split}
+    \langle\varepsilon\rangle=&\sum_{n=0}^\infty\frac{n\varepsilon e^{-\beta n\varepsilon}}{Z}\\
+    =&\frac{-\frac{\partial}{\partial\beta}\sum_n e^{-\beta n\varepsilon}}{\sum_ne^{-\beta n\varepsilon}}\\
+    =&-\frac{\partial}{\partial\beta}\log\left(\sum_{n=0}^\infty e^{-\beta n\varepsilon}\right)
+  \end{split}
+\end{align}
+ここで無限等比級数の和の公式から
+\begin{align}
+  \begin{split}
+    \sum_{n=0}^\infty e^{-\beta n\varepsilon}=\frac{1}{1-e^{-\beta\varepsilon}}
+  \end{split}
+\end{align}
+なので
+\begin{align}
+  \begin{split}
+    \langle\varepsilon\rangle=&-\frac{\partial}{\partial\beta}\log\left(1-e^{-\beta\varepsilon}\right)^{-1}\\
+    =&\frac{\partial}{\partial\beta}\log\left(1-e^{-\beta\varepsilon}\right)\\
+    =&\frac{\varepsilon e^{-\beta\varepsilon}}{1-e^{-\beta\varepsilon}}\\
+    =&\frac{\varepsilon}{e^{\beta\varepsilon}-1}
+  \end{split}
+\end{align}
+を得る.
+\section*{問8(2)}
+スライド(2.5)式について$\omega=2\pi\nu$を用いて, (2.4)式は
+\begin{align}
+  \begin{array}{cl}
+    &\rho(\omega)d\omega=\cfrac{\hbar\omega^3}{c^3\pi^2}\cfrac{1}{e^{\beta\hbar\omega}-1}d\omega\\
+    \iff&\rho(\nu)d\nu=\cfrac{\hbar(2\pi\nu)^3}{c^3\pi^2}\cfrac{1}{e^{\beta\hbar\times2\pi\nu}-1}2\pi d\nu\\
+    \iff&\rho(\nu)d\nu=\cfrac{8\pi h\nu^3}{c^3}\cfrac{1}{e^{\beta h\nu}-1}d\nu
+  \end{array}
+\end{align}
+となる.ただし$h$はプランク定数である.また(2.6)式について$c=\nu\lambda$から
+\begin{align}
+  \frac{d\nu}{d\lambda}=\frac{d}{d\lambda}\frac{c}{\lambda}=-\frac{c}{\lambda^2}
+\end{align}
+であるので, (5)式より
+\begin{align}
+  \begin{array}{cl}
+    &\rho(\nu)d\nu=\cfrac{8\pi h\nu^3}{c^3}\cfrac{1}{e^{\beta h\nu}-1}d\nu\\
+    \iff&\rho(\lambda)d\lambda=\cfrac{8\pi h}{\lambda^3}\cfrac{1}{e^{\beta hc/\lambda}-1}\left(-\cfrac{c}{\lambda^2}d\lambda\right)\\
+    \iff&\rho(\lambda)d\lambda=-\cfrac{8\pi hc}{\lambda^5}\cfrac{1}{e^{\beta hc/\lambda}-1}d\lambda\\
+  \end{array}
+\end{align}
+となる.
+\bibliography{ref.bib}
+\end{document}
