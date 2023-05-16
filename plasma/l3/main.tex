@@ -1,0 +1,142 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{応用プラズマ工学}
+\author{82311971 佐々木良輔}
+\date{}
+\maketitle
+\section*{問1}
+温度$10\ \si{eV}$の電子の熱速度はボルツマン定数を$1.602\times10^{-19}\ \si{J.eV^{-1}}$とすると
+\begin{align}
+  v_{\rm th}=\sqrt{\frac{2k_BT}{m_e}}=\sqrt{\frac{2\times1.602\times10^{-19}\times10}{9.109\times10^{-31}}}=1.87\times10^6\ \si{m.s^{-1}}
+\end{align}
+またグラフから$10\ \si{eV}$の速度係数は$\langle\sigma_{\rm en}v\rangle=5\times10^{-9}\ \si{cm^3.s^{-1}}=5\times10^{-15}\ \si{m^3.s^{-1}}$なので
+衝突周波数の平均値は
+\begin{align}
+  \langle\nu_{\rm en}\rangle=n_{\rm n}\langle\sigma_{\rm en}v\rangle=1.0\times10^{20}\times5\times10^{-15}=5\times10^5\ \si{Hz}
+\end{align}
+である.
+したがって平均自由行程$\lambda_{\rm en}$は
+\begin{align}
+  \lambda_{\rm en}=\frac{v_{\rm th}}{\langle\nu_{\rm en}\rangle}=\frac{1.87\times10^6}{5\times10^5}=4\ \si{m}
+\end{align}
+である.また1回の衝突で1個の水素イオンが生成されるとすると,単位体積,単位時間あたりの水素イオン生成数は
+\begin{align}
+  n_e\langle\nu_{\rm en}\rangle=1.0\times10^{19}\times5\times10^5=5\times10^{24}\ \si{m^{-3}.s^{-1}}
+\end{align}
+である.
+\section*{問2}
+速度係数は
+\begin{align}
+  \langle\sigma_{\rm en}v\rangle=\frac{1}{n_e}\int_0^\infty dv\sigma_{\rm en}vF_e(v)
+\end{align}
+と定義される.ここですべての電子が一定の速度$v_0$を持っている場合
+\begin{align}
+  F_e(v)=n_e\delta(v-v_0)
+\end{align}
+であるので
+\begin{align}
+  \langle\sigma_{\rm en}v\rangle=\sigma_{\rm en}(v_0)v_0
+\end{align}
+となり, $\sigma_{\rm en}(v_0)=0$の場合は$\langle\sigma_{\rm en}v\rangle=0$となる.
+
+一方で温度$T$が与えられたとき,気体の速度はMaxwell-Boltzmann分布
+\begin{align}
+  F_e(v)\propto v^2{\rm exp}\left(-\frac{1}{2}\frac{m_ev^2}{k_BT}\right)
+\end{align}
+に従う.これは$v_{\rm th}=\sqrt{2k_BT/m_e}$で極大を取るが,
+$v_{\rm th}$以上の速度においても有限の値をもっている.
+したがって電子気体の温度が電離エネルギー以下であっても,
+それ以上のエネルギーを持った電子は存在しており,これが反応に寄与していると考えられる.
+\section*{問3}
+\subsection*{(1)}
+エネルギー保存則は
+\begin{align}
+  \frac{1}{2}m_1v_1^2=\frac{1}{2}m_1v_1'^2+\frac{1}{2}m_2v_2'^2+\Delta U
+\end{align}
+運動量保存則は
+\begin{align}
+  m_1v_1=m_1v_1'+m_2v_2'
+\end{align}
+である.
+\subsection*{(2)}
+(9)から
+\begin{align}
+  2\Delta U=m_1v_1^2-m_1v_1'^2-m_2v_2'^2
+\end{align}
+(10)を代入すると
+\begin{align}
+  \begin{split}
+    2\Delta U=&m_1v_1^2-m_1v_1'^2-m_2\left(\frac{m_1(v_1-v_1')}{m_2}\right)^2\\
+    =&m_1v_1^2-m_1v_1'^2-\frac{m_1^2}{m_2}\left(v_1-v_1'\right)^2
+  \end{split}
+\end{align}
+となる.
+\subsection*{(3)}
+(12)を$v_1'$について整理すると
+\begin{align}
+  \begin{split}
+    2\Delta U=&m_1v_1^2-m_1v_1'^2-\frac{m_1^2}{m_2}\left(v_1^2-2v_1v_1'+v_1'^2\right)\\
+    =&-v_1'^2\left(m_1+\frac{m_1^2}{m_2}\right)+\frac{2m_1^2}{m_2}v_1v_1'+v_1^2\left(m_1-\frac{m_1^2}{m_2}\right)\\
+    =&-\left(m_1+\frac{m_1^2}{m_2}\right)\left(v_1'-\frac{m_1v_1}{m_1+m_2}\right)^2
+    +\frac{m_2}{m_1+m_2}m_1v_1^2
+  \end{split}
+\end{align}
+となる.したがって$\Delta U$は
+\begin{align}
+  v_1'=\frac{m_1v_1}{m_1+m_2}
+\end{align}
+のときに最大値を取り,その値は
+\begin{align}
+  \Delta U_{\rm max}=\frac{m_2}{m_1+m_2}\frac{1}{2}m_1v_1^2
+\end{align}
+となる.
+\subsection*{(4)}
+$m_1\ll m_2$のとき
+\begin{align}
+  \lim_{m_1\rightarrow0} \Delta U_{\rm max}=\frac{1}{2}m_1v_1^2
+\end{align}
+であり,入射粒子のエネルギーがすべて内部エネルギーになることがわかる.
+一方で$m_1\simeq m_2$のとき
+\begin{align}
+  \Delta U_{\rm max}=\frac{1}{2}\frac{1}{2}m_1v_1^2
+\end{align}
+であり,入射粒子のエネルギーの半分が内部エネルギーになっている.
+\bibliography{ref.bib}
+\end{document}
