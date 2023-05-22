@@ -1,0 +1,102 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{磁性物理学 レポート No.2}
+\author{82311971 佐々木良輔}
+\date{}
+\maketitle
+相互作用のない古典的な原子磁気モーメント$\bm m$を考える.
+外部磁場$\bm H$中でのエネルギーは, $\bm H$と$\bm m$のなす角を$\theta$として
+\begin{align}
+  E=-{\bm m}\cdot{\bm H}=-mH\cos\theta
+\end{align}
+で与えられる.このとき温度$T$の$\bm m$が$\theta$を向く確率はボルツマン因子
+\begin{align}
+  e^{-\beta E}=e^{mH\cos\theta/k_BT}
+\end{align}
+に比例する.また角度$\theta$から$\theta+d\theta$の間の面積を$dA(\theta)$とすると,
+全磁気モーメントのうち$\theta$から$\theta+d\theta$を向く割合は
+\begin{align}
+  P(\theta)d\theta=\frac{e^{-\beta E}dA(\theta)}{\int_0^\pi e^{-\beta E}dA(\theta)d\theta}
+\end{align}
+ここで$dA(\theta)$は図\ref{fig:dA.jpg}より
+\begin{align}
+  dA(\theta)=2\pi R^2\sin\theta d\theta
+\end{align}
+また$\bm m$は磁場方向に$\cos\theta$の大きさで寄与するので外部磁場方向の磁化$M$は,単位体積あたりの磁気モーメント数を$N$として
+\begin{align}
+  \begin{split}
+    M&=Nm\langle\cos\theta\rangle\\
+    &=Nm\int_0^\pi\cos\theta P(\theta)d\theta\\
+    &=Nm\cfrac{\int_0^\pi e^{\beta mH\cos\theta}2\pi R^2\sin\theta\cos\theta d\theta}{\int_0^\pi e^{\beta mH\cos\theta}2\pi R^2\sin\theta d\theta}\\
+    &=Nm\cfrac{\int_0^\pi e^{\beta mH\cos\theta}\sin\theta\cos\theta d\theta}{\int_0^\pi e^{\beta mH\cos\theta} \sin\theta d\theta}
+  \end{split}
+\end{align}
+ここで分母は$\cos\theta=t$とすると$dt=-\sin\theta d\theta$より
+\begin{align}
+  \begin{split}
+    \int_0^\pi e^{\beta mH\cos\theta} \sin\theta d\theta&=\int^1_{-1}e^{\beta mHt}dt\\
+    &=\frac{e^{\beta mH}-e^{-\beta mH}}{\beta mH}\\
+    &=\frac{2\sinh(\beta mH)}{\beta mH}
+  \end{split}
+\end{align}
+また(6)式を両辺$\beta mH$で微分すると左辺は
+\begin{align}
+  \frac{d}{d(\beta mH)}\int_0^\pi e^{\beta mH\cos\theta} \sin\theta d\theta&=\int_0^\pi e^{\beta mH\cos\theta} \sin\theta\cos\theta d\theta
+\end{align}
+右辺は
+\begin{align}
+  \frac{d}{d(\beta mH)}\frac{2\sinh(\beta mH)}{\beta mH}&=2\frac{\beta mH\cosh(\beta mH)-\sinh(\beta mH)}{(\beta mH)^2}
+\end{align}
+したがって(5)式の分子は
+\begin{align}
+  \int_0^\pi e^{\beta mH\cos\theta} \sin\theta\cos\theta d\theta=2\frac{\cosh(\beta mH)}{\beta mH}-2\frac{\sinh(\beta mH)}{(\beta mH)^2}
+\end{align}
+以上から
+\begin{align}
+  \begin{split}
+    M&=Nm\frac{2\frac{\cosh(\beta mH)}{\beta mH}-2\frac{\sinh(\beta mH)}{(\beta mH)^2}}{\frac{2\sinh(\beta mH)}{\beta mH}}\\
+    &=Nm\left(\coth(\beta mH)-\frac{1}{\beta mH}\right)\\
+    &=NmL(\beta mH)
+  \end{split}
+\end{align}
+となる.
+\mfig[width=6cm]{dA.jpg}{$\theta$から$\theta+d\theta$の面積}
+\bibliography{ref.bib}
+\end{document}
