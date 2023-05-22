@@ -1,0 +1,255 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{レーザー物理学 レポート No.5}
+\author{82311971 佐々木良輔}
+\date{}
+\maketitle
+\section*{問9}
+\subsection*{調和振動子の場合}
+電荷$e$の電気双極子$\hat{\mu}$は
+\begin{align}
+  \hat{\mu}=e\hat{x}
+\end{align}
+である.ここで1次元調和振動子においては昇降演算子
+\begin{align}
+  \begin{split}
+    a&=\sqrt{\frac{m\omega_0}{2\hbar}}\left(\hat{x}+\frac{\hbar}{m\omega_0}\frac{d}{dx}\right)\\
+    a^\dag&=\sqrt{\frac{m\omega_0}{2\hbar}}\left(\hat{x}-\frac{\hbar}{m\omega_0}\frac{d}{dx}\right)
+  \end{split}
+\end{align}
+を用いて
+\begin{align}
+  \hat{x}=\sqrt{\frac{\hbar}{2m\omega_0}}\left(a+a^\dag\right)
+\end{align}
+である.また$|i\rangle$は正規直交基底を成すため
+\begin{align}
+  \langle i|j\rangle=\delta_{ij}
+\end{align}
+また昇降演算子を用いて
+\begin{align}
+  \begin{split}
+    a|n\rangle&=\sqrt{n}|n-1\rangle\\
+    a^\dag|n\rangle&=\sqrt{n+1}|n+1\rangle
+  \end{split}
+\end{align}
+である.したがって$\hat{\mu}$の行列要素は
+\begin{align}
+  \begin{split}
+    \mu_{mn}&=\langle i|e\hat{x}|j\rangle\\
+    &=e\sqrt{\frac{\hbar}{2m\omega_0}}\langle n|\left(a+a^\dag\right)|m\rangle
+  \end{split}
+\end{align}
+これが非零となるのは$m=n+1$または$m=n-1$のときである.
+$m=n+1$のとき
+\begin{align}
+  \begin{split}
+    \mu_{n,n+1}&=e\sqrt{\frac{\hbar}{2m\omega_0}}\langle n|\left(a+a^\dag\right)|n+1\rangle\\
+    &=e\sqrt{\frac{\hbar}{2m\omega_0}}\langle n|\left(\sqrt{n+1}|n\rangle+\sqrt{n+2}|n+2\rangle\right)\\
+    &=e\sqrt{\frac{(n+1)\hbar}{2m\omega_0}}
+  \end{split}
+\end{align}
+また$m=n-1$かつ$n\geq1$のとき
+\begin{align}
+  \begin{split}
+    \mu_{n,n-1}&=e\sqrt{\frac{\hbar}{2m\omega_0}}\langle n|\left(a+a^\dag\right)|n-1\rangle\\
+    &=e\sqrt{\frac{\hbar}{2m\omega_0}}\langle n|\left(\sqrt{n-1}|n-2\rangle+\sqrt{n}|n\rangle\right)\\
+    &=e\sqrt{\frac{n\hbar}{2m\omega_0}}
+  \end{split}
+\end{align}
+である.
+\subsection*{水素原子の場合}
+水素原子の波動関数は以下で与えられる.\cite{alma990023810940204034}
+\begin{align}
+  |nlm\rangle=\Psi_{nlm}(r,\theta,\phi)=R_{n,l}(r)Y_{l,m}(\theta,\phi)
+\end{align}
+ここで$R_{n.l}$は動径方向の波動関数であり
+\begin{align}
+  &R_{n,l}(r)=\frac{n^2a_B^{3/2}}{2}\sqrt{\frac{(n-l-1)!}{\left((n+l)!\right)^3}}\zeta^le^{-\zeta/2}L^{2l+1}_{n+l}(\zeta)\\
+  &\zeta=\frac{2r}{na_B}
+\end{align}
+ここで$a_B$はボーア半径, $L^j_k$はLaguerreの陪多項式であり
+\begin{align}
+  L^j_k(\zeta)=\frac{d^j}{d\zeta^j}\left(e^\zeta\frac{d^k}{d\zeta^k}(\zeta^ke^{-\zeta})\right)
+\end{align}
+で与えられる.また$Y_{l,m}$は角度方向の波動関数であり
+\begin{align}
+  Y_{l,m}(\theta,\phi)=(-1)^{(m+|m|)/2}\sqrt{\frac{2l+1}{4\pi}\frac{(l-|m|)!}{(l+|m|)!}}P^{|m|}_l(\cos\theta)e^{im\phi}
+\end{align}
+ここで$P_l^{|m|}$はLegendre陪関数であり
+\begin{align}
+  P^m_l(\xi)=(1-\xi^2)^{m/2}\frac{d^m}{d\xi^m}\left(\frac{1}{2^ll!}\frac{d^l}{d\xi^l}(\xi^2-1)^l\right)
+\end{align}
+で与えられる.したがって$\hat{\mu}$の行列要素は
+\begin{align}
+  \begin{split}
+    \mu&=\langle n'l'm'|e\hat{r}|nlm\rangle\\
+    &=e\int_0^\infty dr\int_0^\pi d\theta\int_0^{2\pi}d\phi r^2\sin\theta \Psi_{n'l'm'}^*\hat{r}\Psi_{nlm}\\
+    &=e\int_0^\infty dr\int_0^\pi d\theta\int_0^{2\pi}d\phi r^3\sin\theta \Psi_{n'l'm'}^*\Psi_{nlm}\\
+  \end{split}
+\end{align}
+この中で$\phi$に関する積分は
+\begin{align}
+  \begin{split}
+    \int_0^{2\pi}d\phi\ e^{-im'\phi}e^{im\phi}&=\int_0^{2\pi}d\phi\ e^{i(m-m')\phi}\\
+    &=2\pi\delta_{m',m}
+  \end{split}
+\end{align}
+であるので, $m'\neq m$のときには$\mu=0$となる.
+したがって以下では$m'=m$とする.
+$\theta$に関する積分は
+\begin{align}
+  \int_0^\pi d\theta\ \sin\theta P_{l'}^{|m|}(\cos\theta)P_{l}^{|m|}(\cos\theta)
+\end{align}
+ここで$\cos\theta=x$とすると積分範囲は$1\rightarrow -1$, $dx=\sin\theta d\theta$なので(17)は
+\begin{align}
+  \begin{split}
+    \int_0^\pi d\theta\ \sin\theta P_{l'}^{|m|}(\cos\theta)P_{l}^{|m|}(\cos\theta)
+    &=-\int_{-1}^1dx\ P_{l'}^{|m|}(x)P_{l}^{|m|}(x)\\
+    &=-\frac{2}{2l+1}\frac{(l+m)!}{(l-m)!}\delta_{l',l}
+  \end{split}
+\end{align}
+ここでLegendre陪関数の直交正を用いた.
+したがって$l'\neq l$のときは$\mu=0$となるので,以下では$l'=l$とする.
+以上から角度方向の積分は
+\begin{align}
+  \begin{split}
+    &(-1)^{m+|m|}\frac{2l+1}{4\pi}\frac{(l-|m|)!}{(l+|m|)!}\int_0^\pi\ d\theta\sin\theta P_l^{|m|}P_l^{|m|}\int_0^{2\pi}d\phi\\
+    =&(-1)^{m+|m|}\frac{2l+1}{4\pi}\frac{(l-|m|)!}{(l+|m|)!}\left(-\frac{2}{2l+1}\frac{(l+m)!}{(l-m)!}\right)2\pi\\
+    =&(-1)^{m+|m|+1}
+  \end{split}
+\end{align}
+となる.以上から電気双極子の行列成分の非零成分は
+\begin{align}
+  \begin{split}
+    \mu_{n',n}&=\langle n'lm|e\hat{r}|nlm\rangle\\
+    &=(-1)^{m+|m|+1}e\int_0^\infty dr\ r^3R_{n',l}^*(r)R_{n,l}(r)
+  \end{split}
+\end{align}
+となる.
+\section*{問10}
+与式において$\delta t/2=z$とすると
+\begin{align}
+  \begin{split}
+    \frac{\Omega_0^2}{\Delta\omega}\int_{-\Delta\omega/2}^{\Delta\omega/2}\frac{1}{\delta^2}\sin^2\frac{\delta}{2}td\delta&=\frac{\Omega_0^2}{\Delta\omega}\int_{-\Delta\omega/2}^{\Delta\omega/2}\frac{t^2}{4z^2}\sin^2zdz\frac{2}{t}\\
+    &=\frac{\Omega_0^2}{2\Delta\omega}t\int_{-\Delta\omega/2}^{\Delta\omega/2}\frac{\sin^2z}{z^2}dz
+  \end{split}
+\end{align}
+ここで
+\begin{align}
+  \begin{split}
+    \int_{-\infty}^\infty\frac{\sin^2z}{z^2}dz&=\left[-\frac{1}{z}\sin^2z\right]_{-\infty}^\infty+\int_{-\infty}^\infty\frac{2}{z}\sin z\cos zdz\\
+    &=0+\int_{-\infty}^\infty\frac{\sin 2z}{z}dz\\
+    &=\int_{-\infty}^\infty\frac{\sin \zeta}{\zeta}d\zeta
+  \end{split}
+\end{align}
+最後の変形において$2z=\zeta$とした.ここで図\ref{fig:int.jpg}のような積分経路上で以下の積分を考える.
+\begin{align}
+  \int_C\frac{e^{iz}}{z}dz=\int_r^R\frac{e^{iz}}{z}dz+\int_{C_2}\frac{e^{iz}}{z}dz+\int_{-R}^{-r}\frac{e^{iz}}{z}dz+\int_{C_1}\frac{e^{iz}}{z}dz
+\end{align}
+積分経路内部に極は存在しないため
+\begin{align}
+  \int_r^R\frac{e^{iz}}{z}dz+\int_{C_2}\frac{e^{iz}}{z}dz+\int_{-R}^{-r}\frac{e^{iz}}{z}dz+\int_{C_1}\frac{e^{iz}}{z}dz=0
+\end{align}
+となる.
+$C_1$上で$z=re^{i\theta}$とすると
+\begin{align}
+  \begin{split}
+    \int_{C_1}\frac{e^{iz}}{z}dz&=\int_\pi^0\frac{e^{ire^{i\theta}}}{re^{i\theta}}ire^{i\theta}d\theta\\
+    &=\int_\pi^0ie^{ire^{i\theta}}d\theta
+  \end{split}
+\end{align}
+ここで$r\rightarrow0$とすると
+\begin{align}
+  \begin{split}
+    \lim_{r\rightarrow0}\int_\pi^0ie^{ire^{i\theta}}d\theta=\int_\pi^0id\theta=-i\pi
+  \end{split}
+\end{align}
+となる.また$C_2$上で$z=Re^{i\theta}$とすると
+\begin{align}
+  \begin{split}
+    \int_{C_2}\frac{e^{iz}}{z}dz&=\int_0^\pi\frac{e^{iRe^{i\theta}}}{Re^{i\theta}}iRe^{i\theta}d\theta\\
+    &=\int_0^\pi ie^{iRe^{i\theta}}d\theta\\
+    &=\int_0^\pi ie^{iR\cos\theta-R\sin\theta}d\theta
+  \end{split}
+\end{align}
+両辺絶対値を取ると
+\begin{align}
+  \begin{split}
+    \left|\int_{C_2}\frac{e^{iz}}{z}dz\right|&=\int_0^\pi e^{-R\sin\theta}d\theta\\
+    &=2\int_0^{\pi/2} e^{-R\sin\theta}d\theta
+  \end{split}
+\end{align}
+ここで$0\leq x\leq \pi/2$の範囲で$\sin x\geq 2x/\pi$より$e^{-R\sin\theta}\leq e^{-2Rx/\pi}$となるので
+\begin{align}
+  \begin{split}
+    \left|\int_{C_2}\frac{e^{iz}}{z}dz\right|&\leq2\int_0^{\pi/2}e^{-2R\theta/\pi}d\theta\\
+    &=-\frac{\pi}{R}\left[e^{-2R\theta/\pi}\right]^{\pi/2}_0\\
+    &=\frac{\pi}{R}\left(1-e^{-R}\right)
+  \end{split}
+\end{align}
+ここで$R\rightarrow\infty$とすると
+\begin{align}
+  \left|\int_{C_2}\frac{e^{iz}}{z}dz\right|\leq0
+\end{align}
+以上から
+\begin{align}
+  \begin{split}
+    0&=\lim_{r\rightarrow0,R\rightarrow\infty}\left(\int_r^R\frac{e^{iz}}{z}dz+\int_{C_2}\frac{e^{iz}}{z}dz+\int_{-R}^{-r}\frac{e^{iz}}{z}dz+\int_{C_1}\frac{e^{iz}}{z}dz\right)\\
+    &=\int_{-\infty}^{\infty}\frac{e^{iz}}{z}+0-i\pi\\
+    \iff i\pi&=\int_{-\infty}^{\infty}\frac{e^{iz}}{z}dz
+  \end{split}
+\end{align}
+この虚部を取れば
+\begin{align}
+  \int_{-\infty}^\infty\frac{\sin x}{x}dx=\pi
+\end{align}
+以上から(21)式, (22)式において$\Delta\omega\rightarrow\infty$とすると
+\begin{align}
+  \begin{split}
+    \frac{\Omega_0^2}{\Delta\omega}\int_{-\infty}^\infty\frac{1}{\delta^2}\sin^2\frac{\delta}{2}td\delta
+    &=\frac{\Omega_0^2}{2\Delta\omega}t\int_{-\infty}^\infty\frac{\sin^2z}{z^2}dz\\
+    &=\frac{\Omega_0^2}{2\Delta\omega}t\int_{-\infty}^\infty\frac{\sin\zeta}{\zeta}d\zeta\\
+    &=\frac{\Omega_0^2\pi}{2\Delta\omega}t
+  \end{split}
+\end{align}
+を得る.
+\mfig[width=10cm]{int.jpg}{積分経路}
+\bibliography{ref.bib}
+\end{document}
