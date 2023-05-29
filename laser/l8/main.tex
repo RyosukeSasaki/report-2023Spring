@@ -1,0 +1,163 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\renewcommand{\theequation}{%
+\thesection.\arabic{equation}}
+\@addtoreset{equation}{section}
+\makeatother
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{レーザー物理学 レポート No.6}
+\author{82311971 佐々木良輔}
+\date{}
+\maketitle
+\section*{問11}
+\setcounter{section}{11}
+\setcounter{equation}{0}
+(2.30)式の左辺は
+\begin{align}
+  \begin{split}
+    \frac{d\rho}{dt}&=\frac{d}{dt}\left(|\psi\rangle\langle\psi|\right)\\
+    &=\left(\frac{d}{dt}|\psi\rangle\right)\langle\psi|+|\psi\rangle\frac{d}{dt}\langle\psi|
+  \end{split}
+\end{align}
+ここでSchr\"{o}dinger方程式から
+\begin{align}
+  \frac{d}{dt}|\psi\rangle&=-\frac{i}{\hbar}H|\psi\rangle\\
+  \frac{d}{dt}\langle\psi|&=\frac{i}{\hbar}\langle\psi|H
+\end{align}
+を用いて(11.1)は
+\begin{align}
+  \begin{split}
+    \frac{d\rho}{dt}&=-\frac{i}{\hbar}H|\psi\rangle\langle\psi|+\frac{i}{\hbar}|\psi\rangle\langle\psi|H\\
+    &=-\frac{i}{\hbar}H\rho+\frac{i}{\hbar}\rho H\\
+    &=\frac{i}{\hbar}[\rho,H]
+  \end{split}
+\end{align}
+となる.
+\newpage
+\section*{問13}
+\setcounter{section}{13}
+\setcounter{equation}{0}
+$[\rho,H]$を計算する.
+\begin{align}
+  \begin{split}
+    [\rho,H]&=
+    \begin{pmatrix}
+      \rho_{11}&\rho_{12}\\\rho_{21}&\rho_{22}
+    \end{pmatrix}
+    \begin{pmatrix}
+      H_{11}&H_{12}\\H_{21}&H_{22}
+    \end{pmatrix}
+    -
+    \begin{pmatrix}
+      H_{11}&H_{12}\\H_{21}&H_{22}
+    \end{pmatrix}
+    \begin{pmatrix}
+      \rho_{11}&\rho_{12}\\\rho_{21}&\rho_{22}
+    \end{pmatrix}\\
+    &=
+    \begin{pmatrix}
+      \rho_{12}H_{21}-\rho_{21}H_{12}&\rho_{11}H_{12}+\rho_{12}H_{22}-H_{11}\rho_{12}-H_{12}\rho_{22}\\
+      \rho_{21}H_{11}+\rho_{22}H_{21}-H_{21}\rho_{11}-H_{22}\rho_{21}&\rho_{21}H_{12}-H_{21}\rho_{12}
+    \end{pmatrix}
+  \end{split}
+\end{align}
+したがってSchr\"{o}dinger方程式は
+\begin{align}
+  \begin{pmatrix}
+    \dot{\rho_{11}}&\dot{\rho_{12}}\\
+    \dot{\rho_{21}}&\dot{\rho_{22}}
+  \end{pmatrix}
+  =\frac{i}{\hbar}
+  \begin{pmatrix}
+    \rho_{12}H_{21}-\rho_{21}H_{12}&\rho_{11}H_{12}+\rho_{12}H_{22}-H_{11}\rho_{12}-H_{12}\rho_{22}\\
+    \rho_{21}H_{11}+\rho_{22}H_{21}-H_{21}\rho_{11}-H_{22}\rho_{21}&\rho_{21}H_{12}-H_{21}\rho_{12}
+  \end{pmatrix}
+\end{align}
+この行列の22成分から11成分を引くと
+\begin{align}
+  \dot{\rho_{22}}-\dot{\rho_{11}}=\frac{i}{\hbar}(2\rho_{21}H_{12}-2H_{21}\rho_{12})
+\end{align}
+ここで左辺は$\dot{\rho_{22}}-\dot{\rho_{11}}=\dot{r_3}$である.また
+\begin{align}
+  \begin{split}
+    ({\bm F}\times {\bm r})_3&=F_1r_2-F_2r_1\\
+    &=\frac{i}{\hbar}(H_{12}+H_{21})(\rho_{21}-\rho_{12})+\frac{i}{\hbar}(H_{12}-H_{21})(\rho_{12}+\rho_{21})\\
+    &=\frac{i}{\hbar}(2H_{12}\rho_{21}-2H_{21}\rho_{12})
+  \end{split}
+\end{align}
+である. (13.3), (13.4)から
+\begin{align}
+  \dot{r_3}=({\bm F}\times {\bm r})_3
+\end{align}
+である.次に(13.2)の12成分と21成分を足すと
+\begin{align}
+  \begin{split}
+    \dot{\rho_{12}}+\dot{\rho_{21}}=&\frac{i}{\hbar}\left(\rho_{11}H_{12}-\rho_{11}H_{21}+\rho_{12}H_{22}-\rho_{12}H_{11}\right.\\
+    &+\left.\rho_{21}H_{11}-\rho_{21}H_{22}+\rho_{22}H_{21}-\rho_{22}H_{12}\right)\\
+    =&\frac{i}{\hbar}(H_{21}-H_{12})(\rho_{22}-\rho_{11})+\frac{i}{\hbar}(H_{22}-H_{11})(\rho_{12}-\rho_{21})\\
+    =&(F_2r_3-F_3r_2)=({\bm F}\times{\bm r})_1
+  \end{split}
+\end{align}
+また$\dot{\rho_{12}}+\dot{\rho_{21}}=\dot{r_1}$より
+\begin{align}
+  \dot{r_1}=({\bm F}\times{\bm r})_1
+\end{align}
+である.次に(13.2)の12成分と21成分を引くと
+\begin{align}
+  \begin{split}
+    \dot{\rho_{12}}-\dot{\rho_{21}}=&\frac{i}{\hbar}
+    \left(\rho_{11}H_{12}+\rho_{11}H_{21}+\rho_{12}H_{22}-\rho_{12}H_{11}\right.\\
+    &-\left.\rho_{21}H_{11}+\rho_{21}H_{22}-\rho_{22}H_{21}-\rho_{22}H_{12}\right)\\
+    =&\frac{i}{\hbar}(H_{22}-H_{11})(\rho_{12}+\rho_{21})-\frac{i}{\hbar}(H_{21}+H_{12})(\rho_{22}-\rho_{11})\\
+    =&i(F_3r_1-F_1r_3)=i({\bm F}\times{\bm r})_2
+  \end{split}
+\end{align}
+また$(\dot{\rho_{12}}-\dot{\rho_{21}})/i=\dot{r_2}$より
+\begin{align}
+  \dot{r_2}=({\bm F}\times{\bm r})_2
+\end{align}
+以上から
+\begin{align}
+  \frac{d}{dt}{\bm r}={\bm F}\times{\bm r}
+\end{align}
+が示された.
+\bibliography{ref.bib}
+\end{document}
