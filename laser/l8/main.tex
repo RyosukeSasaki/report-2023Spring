@@ -72,6 +72,68 @@
 \end{align}
 となる.
 \newpage
+\section*{問12}
+$\mu_{12}E_0^*/\hbar=\Omega$とすると
+\begin{align}
+  \begin{pmatrix}
+    \dot{\rho_{11}}\\
+    \dot{\rho_{22}}\\
+    \dot{\rho_{21}}\\
+    \dot{\rho_{12}}\\
+  \end{pmatrix}=\frac{i}{2}
+  \begin{pmatrix}
+    0&0&\Omega e^{i\delta t}&-\Omega^* e^{-i\delta t}\\
+    0&0&-\Omega e^{i\delta t}&\Omega^* e^{-i\delta t}\\
+    \Omega^* e^{-i\delta t}&-\Omega^* e^{-i\delta t}&0&0\\
+    -\Omega e^{i\delta t}&\Omega e^{i\delta t}&0&0\\
+  \end{pmatrix}
+  \begin{pmatrix}
+    \rho_{11}\\
+    \rho_{22}\\
+    \rho_{21}\\
+    \rho_{12}\\
+  \end{pmatrix}
+\end{align}
+この係数行列について,固有値を求める
+\begin{align}
+  \begin{split}
+    \left|
+    \begin{array}{cccc}
+      -\lambda&0&\Omega e^{i\delta t}&-\Omega^* e^{-i\delta t}\\
+      0&-\lambda&-\Omega e^{i\delta t}&\Omega^* e^{-i\delta t}\\
+      \Omega^* e^{-i\delta t}&-\Omega^* e^{-i\delta t}&-\lambda&0\\
+      -\Omega e^{i\delta t}&\Omega e^{i\delta t}&0&-\lambda\\
+    \end{array}
+    \right|
+    =&-\lambda
+    \left|
+    \begin{array}{ccc}
+      -\lambda&-\Omega e^{i\delta t}&\Omega^* e^{-i\delta t}\\
+      -\Omega^* e^{-i\delta t}&-\lambda&0\\
+      \Omega e^{i\delta t}&0&-\lambda\\
+    \end{array}
+    \right|\\
+    &+\Omega^* e^{-i\delta t}
+    \left|
+    \begin{array}{cccc}
+      0&\Omega e^{i\delta t}&-\Omega^* e^{-i\delta t}\\
+      -\lambda&-\Omega e^{i\delta t}&\Omega^* e^{-i\delta t}\\
+      \Omega e^{i\delta t}&0&-\lambda\\
+    \end{array}
+    \right|\\
+    &+\Omega e^{i\delta t}
+    \left|
+    \begin{array}{cccc}
+      0&\Omega e^{i\delta t}&-\Omega^* e^{-i\delta t}\\
+      -\lambda&-\Omega e^{i\delta t}&\Omega^* e^{-i\delta t}\\
+      -\Omega^* e^{-i\delta t}&-\lambda&0\\
+    \end{array}
+    \right|\\
+    =&\lambda^2(\lambda^2-4|\Omega|^2)
+  \end{split}
+\end{align}
+よって固有値は$\lambda=0,\pm2|\Omega|$である.
+\newpage
 \section*{問13}
 \setcounter{section}{13}
 \setcounter{equation}{0}
