@@ -1,0 +1,116 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{応用プラズマ工学}
+\author{82311971 佐々木良輔}
+\date{}
+\maketitle
+\section*{問1}
+電荷$-e$を持った電子が電場$E(x)$から受ける力は$-eE(x)$なので,数密度が$n(x)$の電子が受ける単位体積あたりの力は
+\begin{align}
+  -eE(x)n(x)
+\end{align}
+である.
+\section*{問2}
+底面積$S$, 高さ$\Delta x$の円柱の体積は$S\Delta x$である.
+$\Delta x$が十分小さく数密度$n(x)$の変化を無視できるとき,この柱に含まれる電子の数は
+\begin{align}
+  n(x)S\Delta x
+\end{align}
+であり,これが電場$E(x)$から受ける力は
+\begin{align}
+  -eE(x)n(x)S\Delta x
+\end{align}
+である.
+\section*{問3}
+微小円柱要素の両端における圧力は$p(x)$, $p(x+\Delta x)$であるので,
+この円柱内に含まれる電子に関する運動方程式は電子の質量$m_e$を用いて
+\begin{align}
+  \begin{split}
+    n(x)m_e\ddot{x}&=p(x)S-p(x+\Delta x)S-eE(x)n(x)S\Delta x\\
+    &=-\Delta pS-eE(x)n(x)S\Delta x
+  \end{split}
+\end{align}
+ここで電子の質量が小さいことから$m_e\rightarrow0$とすると
+\begin{align}
+  \begin{array}{cl}
+    &0=-\Delta pS-eE(x)n(x)S\Delta x\\
+    \iff&0=-\cfrac{\Delta p}{\Delta x}-eE(x)n(x)
+  \end{array}
+\end{align}
+\section*{問4}
+$\Delta x\rightarrow0$の極限において(5)式は
+\begin{align}
+  \cfrac{dp}{dx}=-eE(x)n(x)
+\end{align}
+となる.
+ここで理想気体の状態方程式$p=nkT$, 電場と電位の関係$E=-\nabla\phi$より(6)は
+\begin{align}
+  \begin{array}{crcl}
+    &\cfrac{d}{dx}(n(x)kT)&=&-en(x)\left(-\cfrac{d\phi}{dx}\right)\\
+    \iff&\cfrac{\frac{dn}{dx}}{n}&=&\cfrac{e}{kT}\cfrac{d\phi}{dx}
+  \end{array}
+\end{align}
+ここで解として
+\begin{align}
+  n(x)=Ae^{f(x)}
+\end{align}
+という形を仮定する.ただし$A$は定数である. (7)から
+\begin{align}
+  \begin{array}{crcl}
+    &\cfrac{n_0e^{f(x)}\frac{df}{dx}}{n_0e^{f(x)}}&=&\cfrac{e}{kT}\cfrac{d\phi}{dx}\\
+    \iff&\cfrac{df}{dx}&=&\cfrac{e}{kT}\cfrac{d\phi}{dx}\\
+    \iff&f(x)&=&\cfrac{e}{kT}\left(\phi(x)-B\right)\\
+  \end{array}
+\end{align}
+ただし$B$は定数である
+したがって電子密度$n(x)$は
+\begin{align}
+  n(x)=A\exp\left(\frac{e}{kT}\left(\phi(x)-B\right)\right)
+\end{align}
+と表される.さらに$x=0$において$\phi(0)=0$から
+\begin{align}
+  n(0)=A\exp\left(\frac{e}{kT}\left(0-B\right)\right)
+\end{align}
+なので
+\begin{align}
+  n(x)=n(0)\exp\left(\frac{e}{kT}\phi(x)\right)
+\end{align}
+となる.
+\end{document}
