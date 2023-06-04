@@ -1,0 +1,180 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\renewcommand{\theequation}{%
+\thesection.\arabic{equation}}
+\@addtoreset{equation}{section}
+\makeatother
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{レーザー物理学 レポート No.6}
+\author{82311971 佐々木良輔}
+\date{}
+\maketitle
+\section*{問14}
+\setcounter{section}{14}
+\setcounter{equation}{0}
+$A=(N_2-N_1)|\mu_{12}|^2/\hbar\varepsilon_0$, $\gamma_2\Omega_0^2/\gamma_1\ll 1$とすると
+\begin{align}
+  \begin{split}
+    \chi(\omega)&=A\frac{\delta-i\gamma_2}{\delta^2+\gamma_2^2}\\
+    &=A\frac{1}{\delta+i\gamma_2}\\
+  \end{split}
+\end{align}
+$A$は定数なので,簡単のため以下では$A=1$とする.
+$\delta=\omega-\omega_0=x+iy$とすると
+\begin{align}
+  \begin{split}
+    \chi(\omega)&=\frac{1}{x+i(y+\gamma_2)}\\
+    &=\frac{x-i(y+\gamma)}{x^2+(y+\gamma_2)^2}\\
+    &=:u(x,y)+iv(x,y)
+  \end{split}
+\end{align}
+ここで
+\begin{align}
+  \begin{split}
+    u(x,y)=\frac{x}{x^2+(y+\gamma_2)^2}\\
+    v(x,y)=\frac{-y-\gamma_2}{x^2+(y+\gamma_2)^2}
+  \end{split}
+\end{align}
+とした.このとき
+\begin{align}
+  \frac{du}{dx}=\frac{(y+\gamma_2)^2-x^2}{\left(x^2+(y+\gamma_2)^2\right)^2}=\frac{dv}{dy}\\
+  \frac{du}{dy}=\frac{-2x(y+\gamma_2)}{\left(x^2+(y+\gamma_2)^2\right)^2}=-\frac{dv}{dx}
+\end{align}
+よりコーシー・リーマンの関係式を満たすため$\chi(\omega)$は正則である.
+また$x+i(y+\gamma)=re^{i\theta}$とすると(14.2)から
+\begin{align}
+  \chi(\omega)=\frac{re^{-i\theta}}{r^2}\rightarrow 0\ (r\rightarrow\infty)
+\end{align}
+である.このとき図1のような積分経路において以下の積分を行う
+\begin{align}
+  \int_Cd\omega'\frac{\chi(\omega')}{\omega'-\omega}=\left(\int_{-R}^{\omega-r}+\int_{C_1}+\int_{\omega+r}^{R}+\int_{C_2}\right)d\omega'\frac{\chi(\omega')}{\omega'-\omega}
+\end{align}
+ここで(14.6)から$R\rightarrow\infty$において$C_2$上の積分は$0$である.また$C_1$上の積分は留数定理から
+\begin{align}
+  \int_{C_1}d\omega'\frac{\chi(\omega')}{\omega'-\omega}=-i\pi\chi(\omega)
+\end{align}
+である.したがって
+\begin{align}
+  \begin{split}
+    \lim_{\varepsilon\rightarrow0}\left(\int_{-\infty}^{\omega-r}+\int_{\omega+r}^{\infty}\right)d\omega'\frac{\chi(\omega')}{\omega'-\omega}=
+    \mathcal{P}\int_{-\infty}^\infty d\omega'\frac{\chi(\omega')}{\omega'-\omega}=i\pi\chi(\omega)
+  \end{split}\nonumber\\
+  \begin{split}
+    \iff -\mathcal{P}\int_{-\infty}^\infty \frac{id\omega'}{\pi}\frac{\chi(\omega')}{\omega'-\omega}=\chi(\omega)
+  \end{split}
+\end{align}
+$\chi(\omega)=\chi'(\omega)-i\chi''(\omega)$より
+\begin{align}
+  -\mathcal{P}\int_{-\infty}^{\infty}\frac{d\omega'}{\pi}\frac{i\chi(\omega')+\chi''(\omega')}{\omega'-\omega}=\chi'(\omega)-i\chi''(\omega)
+\end{align}
+両辺の実部と虚部を比較し
+\begin{align}
+  \chi'(\omega)&=-\mathcal{P}\int_{-\infty}^{\infty}\frac{d\omega'}{\pi}\frac{\chi''(\omega')}{\omega'-\omega}\\
+  \chi''(\omega)&=\mathcal{P}\int_{-\infty}^{\infty}\frac{d\omega'}{\pi}\frac{\chi'(\omega')}{\omega'-\omega}
+\end{align}
+を得る.
+\mfig[width=8cm]{14.jpg}{積分経路}
+\section*{問15}
+\subsection*{(1)}
+\setcounter{section}{15}
+\setcounter{equation}{0}
+速度分布は
+\begin{align}
+  \rho(v_x,v_y,v_z)=A\exp\left(-\frac{m(v_x^2+v_y^2+v_z^2)}{2kT}\right)=A\exp\left(-\frac{mv^2}{2kT}\right)
+\end{align}
+である.ここで定数$A$は規格化条件から
+\begin{align}
+  \begin{split}
+    1=A\int dv_x e^{-mv_x^2/2kT}\int dv_y e^{-mv_y^2/2kT}\int dv_z e^{-mv_z^2/2kT}=A\left(\int dv_x e^{-mv_x^2/2kT}\right)^3
+  \end{split}
+\end{align}
+を満たす.ガウス積分$\int e^{-\alpha x^2}dx=\sqrt{\pi/\alpha}$から
+\begin{align}
+  A=\left(\int dv_x e^{-mv_x^2/2kT}\right)^{-3}=\left(\sqrt{\frac{2\pi kT}{m}}\right)^{-3}=\left(\frac{m}{2\pi kT}\right)^{3/2}
+\end{align}
+となる.
+
+速さ$v$の粒子を見出す確率は$\rho$を$v$から$v+dv$の範囲で積分したものである.
+$dv$が十分小さければ,この積分は$v$から$v+dv$の球殻の体積をかけることに等しいため
+\begin{align}
+  \rho(v_x,v_y,v_z)dv=A\exp\left(-\frac{mv^2}{2kT}\right)4\pi v^2dv
+\end{align}
+となる.これが最大となることから
+\begin{align*}
+    \frac{d\rho}{dv}&=2vA\exp\left(-\frac{mv^2}{2kT}\right)-v^2\frac{mv}{kT}A\exp\left(-\frac{mv^2}{2kT}\right)\\
+    &=A\left(2-\frac{mv^2}{kT}\right)v\exp\left(-\frac{mv^2}{2kT}\right)=0
+\end{align*}
+\begin{align}
+  \begin{split}
+    \begin{array}{cc}
+      \iff&\cfrac{mv^2}{kT}=2\\
+      \iff&v=\sqrt{\cfrac{2kT}{m}}
+    \end{array}
+  \end{split}
+\end{align}
+を得る.
+\subsection*{(2)}
+速さ$v$の期待値は
+\begin{align}
+  \overline{v}=\int_0^\infty v\cdot 4\pi Av^2\exp\left(-\frac{mv^2}{2kT}\right)dv
+\end{align}
+ここでガウス積分$\int_0^\infty x^3e^{-\alpha x^2}=1/2\alpha^2$を用いて
+\begin{align}
+  \begin{split}
+    \overline{v}&=4\pi A\int_0^\infty v^3\exp\left(-\frac{mv^2}{2kT}\right)dv\\
+    &=4\pi\left(\frac{m}{2\pi kT}\right)^{3/2}\frac{1}{2}\left(\frac{2kT}{m}\right)^2\\
+    &=\sqrt{\frac{8kT}{\pi m}}
+  \end{split}
+\end{align}
+となる.次に二乗平均速さは同様にガウス積分$\int_0^\infty x^4e^{-\alpha x^2}=3/8\sqrt{\pi/\alpha^5}$を用いて
+\begin{align}
+  \begin{split}
+    \overline{v^2}&=\int_0^\infty v^2\cdot4\pi Av^2\exp\left(-\frac{mv^2}{2kT}\right)dv\\
+    &=4\pi\left(\frac{m}{2\pi kT}\right)^{3/2}\frac{3}{8}\sqrt{\frac{32\pi k^5T^5}{m^5}}\\
+    &=\frac{3kT}{m}
+  \end{split}
+\end{align}
+となる.
+\section*{問16}
+\setcounter{section}{16}
+\setcounter{equation}{0}
+\bibliography{ref.bib}
+\end{document}
