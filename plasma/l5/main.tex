@@ -1,0 +1,76 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{応用プラズマ工学}
+\author{82311971 佐々木良輔}
+\date{}
+\maketitle
+$x$方向の速さが$v_x$の粒子密度$dn_x$は,粒子の速度分布がMaxwell分布に従うことから
+\begin{align}
+  \begin{split}
+    dn_x&=\int_{-\infty}^{\infty}dv_y\int_{-\infty}^{\infty}dv_z\ n_e\left(\frac{m_e}{2\pi k_BT}\right)^{3/2}\exp\left(-\frac{m_e}{2k_BT}(v_x^2+v_y^2+v_z^2)\right)\\
+    &=n_e\left(\frac{m_e}{2\pi k_BT}\right)^{3/2}\exp\left(-\frac{m_ev_x^2}{2k_BT}\right)\left(\int_{-\infty}^{\infty}dv\ \exp\left(-\frac{m_ev^2}{2k_BT}\right)\right)^2
+  \end{split}
+\end{align}
+ここでガウス積分$\int_{-\infty}^{\infty}dx\ e^{-ax^2}=\sqrt{\pi/a}$を用いて
+\begin{align}
+  \begin{split}
+    dn_x&=n_e\left(\frac{m_e}{2\pi k_BT}\right)^{3/2}\exp\left(-\frac{m_ev_x^2}{2k_BT}\right)\left(\pi\frac{2k_BT}{m_e}\right)\\
+    &=n_e\sqrt{\frac{m_e}{2\pi k_BT}}\exp\left(-\frac{m_ev_x^2}{2k_BT}\right)
+  \end{split}
+\end{align}
+である.ここで$y-z$面内にある単位面積の領域を単位時間に通過する速さ$v_x$の粒子数は,
+図の体積に含まれる粒子数に等しい.その値は
+\begin{align}
+  1\times v_x\times dn_x=v_xdn_x
+\end{align}
+したがってこの領域を単位時間に右向きに通過する全粒子数は,これを$[0,\infty)$で積分すればよい.
+ガウス積分$\int_{0}^{\infty}dx\ xe^{-ax^2}=1/2a$より
+\begin{align}
+  \begin{split}
+    \int_{0}^{\infty}\ v_xdn_x&=
+    n_e\sqrt{\frac{m_e}{2\pi k_BT}}\int_{0}^{\infty}dv_x\ v_x\exp\left(-\frac{m_ev_x^2}{2k_BT}\right)\\&=
+    n_e\sqrt{\frac{m_e}{2\pi k_BT}}\frac{1}{2}\frac{2k_BT}{m_e}\\
+    &=n_e\sqrt{\frac{k_BT}{2\pi m_e}}\\
+    &=\frac{1}{4}n_e\sqrt{\frac{8k_BT}{\pi m_e}}=\frac{1}{4}n_e\overline{c_e}
+  \end{split}
+\end{align}
+となる.
+\bibliography{ref.bib}
+\end{document}
