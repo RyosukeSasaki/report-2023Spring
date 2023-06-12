@@ -1,0 +1,96 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\renewcommand{\theequation}{%
+\thesection.\arabic{equation}}
+\@addtoreset{equation}{section}
+\makeatother
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{レーザー物理学 レポート No.7}
+\author{82311971 佐々木良輔}
+\date{}
+\maketitle
+\section*{問17}
+\setcounter{section}{17}
+\setcounter{equation}{0}
+閉じた2準位系でのレート方程式は, ポンピングのレートを$\Gamma$, 状態2から状態1への遷移レートを$\gamma_{21}$とすると
+\begin{align}
+  \begin{split}
+    \frac{dN_1}{dt}&=-\Gamma N_1+(\Gamma+\gamma_{21})N_2\\
+    \frac{dN_2}{dt}&=\Gamma N_1-(\Gamma+\gamma_{21})N_2
+  \end{split}
+\end{align}
+ただし準位1から準位2への緩和は無視している.定常状態においてこれらの式は時間微分項を0とすることで
+\begin{align}
+  \Gamma N_1=(\Gamma+\gamma_{21})N_2
+\end{align}
+である.ここで反転分布が形成される条件は$N_2/N_1>1$なので,これを計算すると
+\begin{align}
+  \frac{N_2}{N_1}=\frac{\Gamma}{\Gamma+\gamma_{21}}
+\end{align}
+ここで$\Gamma$, $\gamma_{21}$は共に正なので$N_2/N_1\leq 1$が常に成り立つ.
+したがって2準位系においては反転分布は作れない.
+\section*{問18}
+\setcounter{section}{18}
+\setcounter{equation}{0}
+熱平衡状態において$N_0$と$N_1$の比は
+\begin{align}
+  \frac{N_1}{N_0}=e^{-\frac{W_1-W_0}{k_BT}}
+\end{align}
+で与えられる.また$W_0$, $W_1$間での緩和のみを考えるとレート方程式は
+\begin{align}
+  \begin{split}
+    \frac{dN_0}{dt}&=-\gamma_{01}+\gamma_{10}N_1\\
+    \frac{dN_1}{dt}&=\gamma_{01}-\gamma_{10}N_1
+  \end{split}
+\end{align}
+したがって定常状態において
+\begin{align}
+  \begin{array}{cc}
+    &\gamma_{01}N_0=\gamma_{10}N_1\\
+    \iff&\cfrac{\gamma_{01}}{\gamma_{10}}=\cfrac{N_1}{N_0}
+  \end{array}
+\end{align}
+(18.1), (18.3)から
+\begin{align}
+  \frac{\gamma_{01}}{\gamma_{10}}=e^{-\frac{W_1-W_0}{k_BT}}
+\end{align}
+となる.
+\end{document}
