@@ -402,12 +402,17 @@ Listing 1に計算に用いたWolfram言語コードを示す.これにより固
 \end{center}
 \newpage
 \begin{lstlisting}[language=mathematica, caption=Mathematicaによる固有値方程式の計算コード(式中の$J$をプログラム内では$j$としている)]
+(*initialize variable j, h*)
 Clear[j,h];
+(*define Hamiltonian*)
 H={{j-2h,0,0,0,0,0,0,0,0},{0,-h,0,j,0,0,0,0,0},{0,0,-j,0,j,0,0,0,0},{0,j,0,-h,0,0,0,0,0},{0,0,j,0,0,0,j,0,0},{0,0,0h,0,0,h,0,j,0},{0,0,0,0,j,0,-j,0,0},{0,0,0,0,0,j,0,h,0},{0,0,0,0,0,0,0,0,j+2h}};
+(*calculate eigenvalues and eigenvectors*)
 e=Eigenvalues[H]
 v=Eigenvectors[H]
+(*put j=1 to draw an energy spectrum graph*)
 j=1;
-Plot[e, {h,0,3}, PlotLegends->Automatic,AxesLabel->{"h","E"}]
+(*draw an energy spectrum graph in the range 0<h<3*)
+Plot[e, {h,0,3}, PlotLegends->Automatic, AxesLabel->{"h","E"}]
 \end{lstlisting}
 \bibliography{ref.bib}
 \end{document}
