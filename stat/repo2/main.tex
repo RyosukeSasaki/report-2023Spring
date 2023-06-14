@@ -1,9 +1,8 @@
 \documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
-\usepackage{listings,jvlisting}
 \bibliographystyle{junsrt}
 
+\usepackage{listings,jvlisting}
 \usepackage{url}
-
 \usepackage{graphicx}
 \usepackage{gnuplot-lua-tikz}
 \usepackage{pgfplots}
@@ -12,6 +11,32 @@
 \usepackage{bm}
 \usepackage{siunitx}
 \usepackage{braket}
+
+\definecolor{OliveGreen}{rgb}{0.0,0.6,0.0}
+\definecolor{Orenge}{rgb}{0.89,0.55,0}
+\definecolor{SkyBlue}{rgb}{0.28, 0.28, 0.95}
+\lstset{
+  language={verilog}, % 言語の指定
+  basicstyle={\ttfamily},
+  identifierstyle={\small},
+  commentstyle={\smallitshape},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  xrightmargin=0zw,
+  xleftmargin=3zw,
+  lineskip=-0.5ex,
+  keywordstyle={\color{SkyBlue}},     %キーワード(int, ifなど)の書体指定
+  commentstyle={\color{OliveGreen}},  %注釈の書体
+  stringstyle=\color{Orenge}          %文字列
+}
+\pagestyle{empty}
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
 
 \makeatletter
 \def\fgcaption{\def\@captype{figure}\caption}
@@ -38,6 +63,7 @@
 }
 \newcommand{\up}{\uparrow}
 \newcommand{\dn}{\downarrow}
+\newcommand{\Hheis}{\left(\frac{J}{2}(S_1^+S_2^-+S_1^-S_2^+)+JS_1^zS_2^z-h(S_1^z+S_2^z)\right)}
 
 \begin{document}
 \title{統計物理学 No.2}
@@ -192,7 +218,7 @@ $\Delta=1$のとき分配関数は
 となる.これは図4青線のような曲線になる.
 \begin{center}
   \includegraphics[width=8cm]{mmean.png}
-  \fgcaption{青線:正準分布を用いて計算した磁化の期待値,赤線:図2で示した磁化の期待値, 共に$J=1$, $\beta=1$とした.}
+  \fgcaption{青線:正準分布を用いて計算した磁化の期待値,赤線:図2で示した磁化の期待値(Desmosで描画) 共に$J=1$, $\beta=1$とした.}
 \end{center}
 \subsection*{(d)}
 4状態すべてを考慮したとき,分配関数は
@@ -248,6 +274,140 @@ $e^{\beta J}\simeq1+\beta J$と展開すると
   \end{split}
 \end{align}
 となり,これはCurie-Weiss則に従っている.
+\newpage
 \section*{[2]}
+スピン-1の3状態をそれぞれ
+\begin{align}
+  \Ket{+}=:\Ket{1,1},\ 
+  \Ket{0}=:\Ket{1,0},\ 
+  \Ket{+}=:\Ket{1,-1}
+\end{align}
+と表記する.このとき
+\begin{align}
+  \begin{split}
+    &S^-\Ket{+}=\sqrt{1(1+1)-1(1-1)}\Ket{0}=\sqrt{2}\Ket{0}\\
+    &S^-\Ket{0}=\sqrt{2}\Ket{-}\\
+    &S^-\Ket{-}=0\\
+    &S^+\Ket{+}=0\\
+    &S^+\Ket{0}=\sqrt{2}\Ket{+}\\
+    &S^+\Ket{-}=\sqrt{2}\Ket{0}
+  \end{split}
+\end{align}
+である.これを用いて
+\begin{align}
+  \begin{split}
+    H\Ket{++}&=\Hheis\Ket{++}\\
+    &=0\Ket{++}+J\cdot1\cdot1\Ket{++}-h(1+1)\Ket{++}=(J-2h)\Ket{++}
+  \end{split}
+\end{align}
+\begin{align}
+  \begin{split}
+    H\Ket{+0}&=\frac{J}{2}(0+\sqrt{2}\sqrt{2}\Ket{0+})+0-h(1+0)\Ket{+0}\\
+    &=J\Ket{0+}-h\Ket{+0}
+  \end{split}
+\end{align}
+\begin{align}
+  \begin{split}
+    H\Ket{+-}&=\frac{J}{2}(0+2\Ket{00})+J(1)(-1)\Ket{+-}+0\\
+    &=J\Ket{00}-J\Ket{+-}
+  \end{split}
+\end{align}
+\begin{align}
+    H\Ket{0+}&=J\Ket{+0}-h\Ket{0+}
+\end{align}
+\begin{align}
+  \begin{split}
+    H\Ket{00}&=\frac{J}{2}(2\Ket{+-}+2\Ket{-+})+0+0\\
+    &=J(\Ket{+-}+\Ket{-+})
+  \end{split}
+\end{align}
+\begin{align}
+  \begin{split}
+    H\Ket{0-}&=\frac{J}{2}(0+2\Ket{-0})+0-h(0-1)\Ket{0-}\\
+    &=J\Ket{-0}+h\Ket{0-}
+  \end{split}
+\end{align}
+\begin{align}
+    H\Ket{-+}=J\Ket{00}-J\Ket{-+}
+\end{align}
+\begin{align}
+  H\Ket{-0}=J\Ket{0-}+h\Ket{-0}
+\end{align}
+\begin{align}
+  \begin{split}
+    H\Ket{--}&=(J+2h)\Ket{--}
+  \end{split}
+\end{align}
+であるため, 基底$\left(
+  \Ket{++},\ \Ket{+0},\ \Ket{+-},\ \Ket{0+},\ \Ket{00},\ \Ket{0-},\ \Ket{-+},\ \Ket{-0},\ \Ket{--}
+\right)$に対して$H$は
+\begin{align}
+  \hat{H}=\begin{pmatrix}
+    J - 2 h& 0& 0& 0& 0& 0& 0& 0& 0\\
+    0& -h& 0& J& 0& 0& 0& 0& 0\\
+    0& 0& -J& 0& J& 0& 0& 0& 0\\
+    0& J& 0& -h& 0& 0& 0& 0& 0\\
+    0& 0& J& 0& 0& 0& J& 0& 0\\
+    0& 0& 0& 0& 0& h& 0& J& 0\\
+    0& 0& 0& 0& J& 0& -J& 0& 0\\
+    0& 0& 0& 0& 0& J& 0& h& 0\\
+    0& 0& 0& 0& 0& 0& 0& 0& J + 2 h
+  \end{pmatrix}
+\end{align}
+と行列表示される.ここではこの行列に対する固有値問題をWolfram Mathematicaを用いて解いた.
+Listing 1に計算に用いたWolfram言語コードを示す.これにより固有値,固有状態は
+\begin{align}
+  \renewcommand{\arraystretch}{1.5}
+  \begin{array}{ll}
+    E_1=-h-J&\Ket{1}=\cfrac{1}{\sqrt{2}}(\Ket{0+}-\Ket{+0}),\\
+    E_2=h-J&\Ket{2}=\cfrac{1}{\sqrt{2}}(\Ket{-0}-\Ket{0-}),\\
+    E_3=-2J&\Ket{3}=\cfrac{1}{\sqrt{3}}(\Ket{+-}-\Ket{00}+\Ket{-+}),\\
+    E_4=-J&\Ket{4}=\cfrac{1}{\sqrt{2}}(\Ket{-+}-\Ket{+-}),\\
+    E_5=J&\Ket{5}=\cfrac{1}{\sqrt{6}}(\Ket{+-}+2\Ket{00}+\Ket{-+}),\\
+    E_6=-2h+J&\Ket{6}=\Ket{++},\\
+    E_7=-h+J&\Ket{7}=\cfrac{1}{\sqrt{2}}(\Ket{+0}+\Ket{0+}),\\
+    E_8=h+j&\Ket{8}=\cfrac{1}{\sqrt{2}}(\Ket{0-}+\Ket{-0}),\\
+    E_9=2h+J&\Ket{9}=\Ket{--}
+  \end{array}
+\end{align}
+と求まった.エネルギースペクトルは図5のようになる.
+基底状態は$0\leq h<J$で$\Ket{3}$, $J\leq h<2J$で$\Ket{1}$, $2J\leq h$で$\Ket{6}$である.
+それぞれの場合の磁化の期待値は
+\begin{align}
+  \begin{split}
+    \Braket{3|S_1^z+S_2^z|3}&=\Bra{3}(S_1^z+S_2^z)\cfrac{1}{\sqrt{3}}(\Ket{+-}-\Ket{00}+\Ket{-+})\\
+    &=0
+  \end{split}
+\end{align}
+\begin{align}
+  \begin{split}
+    \Braket{1|S_1^z+S_2^z|1}&=\Bra{1}(S_1^z+S_2^z)\cfrac{1}{\sqrt{2}}(\Ket{0+}-\Ket{+0})\\
+    &=\Bra{1}\frac{1}{\sqrt{2}}(0-\Ket{+0}+\Ket{0+}+0)=1
+  \end{split}
+\end{align}
+\begin{align}
+  \begin{split}
+    \Braket{6|S_1^z+S_2^z|6}&=\Bra{6}(S_1^z+S_2^z)\Ket{++}\\
+    &=\Braket{6|1+1|++}=2
+  \end{split}
+\end{align}
+したがって磁化の期待値は図6のようになる.
+\begin{center}
+  \includegraphics[width=12cm]{espec.pdf}
+  \fgcaption{エネルギースペクトル($J=1$の場合)}
+\end{center}
+\begin{center}
+  \includegraphics[width=8cm]{mmean_s1.png}
+  \fgcaption{磁化の期待値($J=1$の場合)}
+\end{center}
+\newpage
+\begin{lstlisting}[language=mathematica, caption=Mathematicaによる固有値方程式の計算コード(式中の$J$をプログラム内では$j$としている)]
+Clear[j,h];
+H={{j-2h,0,0,0,0,0,0,0,0},{0,-h,0,j,0,0,0,0,0},{0,0,-j,0,j,0,0,0,0},{0,j,0,-h,0,0,0,0,0},{0,0,j,0,0,0,j,0,0},{0,0,0h,0,0,h,0,j,0},{0,0,0,0,j,0,-j,0,0},{0,0,0,0,0,j,0,h,0},{0,0,0,0,0,0,0,0,j+2h}};
+e=Eigenvalues[H]
+v=Eigenvectors[H]
+j=1;
+Plot[e, {h,0,3}, PlotLegends->Automatic,AxesLabel->{"h","E"}]
+\end{lstlisting}
 \bibliography{ref.bib}
 \end{document}
