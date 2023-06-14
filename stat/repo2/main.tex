@@ -44,6 +44,7 @@
 \author{82311971 佐々木良輔}
 \date{}
 \maketitle
+\section*{[1]}
 \subsection*{(a)}
 2スピン系のXXZ相互作用ハミルトニアンは
 \begin{align}
@@ -152,5 +153,101 @@ $h>J/2(\Delta+1)$での基底状態は$\Ket{t_{+1}}$である.それぞれの状
   \fgcaption{$\Delta\geq1$の場合の磁化の期待値}
 \end{center}
 \subsection*{(b)(ii)}
+$0<\Delta<1$のとき$E_{t_{-1}}$は$E_{t_0}$と, $E_{t_{+1}}$は$E_s$と一回ずつ交点をもち,その値は
+\begin{align}
+  \begin{array}{cc}
+    &\cfrac{J\Delta}{4}+h=\cfrac{J}{2}-\cfrac{J\Delta}{4}\\
+    \iff&h\cfrac{J}{2}(1-\Delta)
+  \end{array}
+\end{align}
+\begin{align}
+  \begin{array}{cc}
+    &\cfrac{J\Delta}{4}-h=-\cfrac{J}{2}-\cfrac{J\Delta}{4}\\
+    \iff&h\cfrac{J}{2}(1+\Delta)
+  \end{array}
+\end{align}
+である.したがってエネルギースペクトルは図3のようになる.図3から$h\leq J/2(\Delta+1)$での基底状態は$\Ket{s}$,
+$h>J/2(\Delta+1)$での基底状態は$\Ket{t_{+1}}$である.したがって基底状態での磁化の期待値は前問で計算したものと同様であり,
+磁化の期待値は図2のように振る舞う.
+\begin{center}
+  \includegraphics[width=8cm]{espec_dleq1.png}
+  \fgcaption{$\Delta<1$の場合のエネルギースペクトル}
+\end{center}
+\subsection*{(c)}
+エネルギーの低い2状態$\Ket{s}$, $\Ket{t_{+1}}$のみを考える.
+$\Delta=1$のとき分配関数は
+\begin{align}
+  Z=\exp{\beta\frac{3J}{4}}+\exp{\beta\left(h-\frac{J}{4}\right)}
+\end{align}
+またそれぞれの状態での磁化は$\Braket{s|S_1^z+S_2^z|s}=0$, $\Braket{t_{+1}|S_1^z+S_2^z|t_{+1}}=1$なので,アンサンブル平均は
+\begin{align}
+  \begin{split}
+    \langle S_1^z+S_2^z\rangle&=\frac{0\times\exp\beta\frac{3J}{4}+1\times\exp\beta\left(h-\frac{J}{4}\right)}{Z}\\
+    &=\frac{\exp\beta\left(h-\frac{J}{4}\right)}{\exp{\beta\frac{3J}{4}}+\exp{\beta\left(h-\frac{J}{4}\right)}}\\
+    &=\frac{1}{2}+\frac{1}{2}\frac{\exp{\beta\left(h-\frac{J}{4}\right)}-\exp{\beta\frac{3J}{4}}}{\exp{\beta\left(h-\frac{J}{4}\right)}+\exp{\beta\frac{3J}{4}}}\\
+    &=\frac{1}{2}\left(1+\frac{e^{\frac{\beta}{2}\left(h-j\right)}-e^{a\frac{\beta}{2}\left(h-j\right)}}{e^{\frac{\beta}{2}\left(h-j\right)}+e^{a\frac{\beta}{2}\left(h-j\right)}}\right)\\
+    &=\frac{1}{2}\left(1+\tanh\left(\frac{\beta}{2}(h-j)\right)\right)
+  \end{split}
+\end{align}
+となる.これは図4青線のような曲線になる.
+\begin{center}
+  \includegraphics[width=8cm]{mmean.png}
+  \fgcaption{青線:正準分布を用いて計算した磁化の期待値,赤線:図2で示した磁化の期待値, 共に$J=1$, $\beta=1$とした.}
+\end{center}
+\subsection*{(d)}
+4状態すべてを考慮したとき,分配関数は
+\begin{align}
+  Z=\exp\beta\frac{3J}{4}+\exp\beta\left(h-\frac{J}{4}\right)+\exp\left(-\beta\frac{J}{4}\right)+\exp\left(-\beta\left(h+\frac{J}{4}\right)\right)
+\end{align}
+また$\Ket{t_{-1}}$, $\Ket{t_0}$での磁化の期待値は
+\begin{align}
+  \begin{split}
+    \Braket{t_{-1}|S_1^z+S_2^z|t_{-1}}&=\Braket{\dn\dn|S_1^z+S_2^z|\dn\dn}\\
+    &=-1\Braket{\dn\dn|\dn\dn}=-1
+  \end{split}
+\end{align}
+\begin{align}
+  \begin{split}
+    \Braket{t_0|S_1^z+S_2^z|t_0}&=\Bra{t_0}(S_1^z+S_2^z)\frac{1}{\sqrt{2}}\left(\Ket{\up\dn}+\Ket{\dn\up}\right)\\
+    &=\Bra{t_0}\frac{1}{\sqrt{2}}\left(\frac{1}{2}\Ket{\up\dn}-\frac{1}{2}\Ket{\dn\up}-\frac{1}{2}\Ket{\up\dn}+\frac{1}{2}\Ket{\dn\up}\right)\\
+    &=0
+  \end{split}
+\end{align}
+である.したがってアンサンブル平均は
+\begin{align}
+  \begin{split}
+    \langle S_1^z+S_2^z\rangle&=\frac{1\times e^{\beta(h-J/4)}+(-1)\times e^{-\beta(h+J/4)}}{Z}\\
+    &=\frac{e^{\beta(h-J/4)}-e^{-\beta(h+J/4)}}{e^{\beta(h-J/4)}+e^{-\beta(h+J/4)}+e^{3\beta J/4}+e^{-\beta J/4}}\\
+    &=\frac{e^{\beta h}-e^{-\beta h}}{e^{\beta h}+e^{-\beta h}+e^{\beta J}+1}\\
+    &=\frac{2\sinh\beta h}{2\cosh\beta h+e^{\beta J}+1}
+  \end{split}
+\end{align}
+である.したがって磁気感受率$\chi_{\rm exp}$は
+\begin{align}
+  \begin{split}
+    \chi_{\rm exp}&=\left.(g\mu_B)^2\frac{\partial}{\partial h}\langle S_1^z+S_2^z\rangle\right|_{h\rightarrow 0}\\
+    &=(g\mu_B)^2\left.\frac{2\beta\left(\left(e^{\beta J}+1\right)\cosh\beta h+2(\cosh^2\beta h-\sinh^2\beta h)\right)}{(2\cosh\beta h+e^{\beta J}+1)^2}\right|_{h\rightarrow0}
+  \end{split}
+\end{align}
+ここで$\cosh^2\beta h-\sinh^2\beta h=1$なので
+\begin{align}
+  \begin{split}
+    \chi_{\rm exp}&=(g\mu_B)^2\left.\frac{2\beta\left(\left(e^{\beta J}+1\right)\cosh\beta h+2\right)}{(2\cosh\beta h+e^{\beta J}+1)^2}\right|_{h\rightarrow0}\\
+    &=\frac{2\beta\left(e^{\beta J}+3\right)}{\left(e^{\beta J}+3\right)^2}\\
+    &=\frac{2\beta}{e^{\beta J}+3}
+  \end{split}
+\end{align}
+ここで温度が十分高く$\beta J\ll1$とできることから,
+$e^{\beta J}\simeq1+\beta J$と展開すると
+\begin{align}
+  \begin{split}
+    \chi_{\rm exp}&=\frac{2\beta}{1+\beta J+3}\\
+    &=\frac{2}{\frac{4}{\beta}+J}\\
+    &=\frac{2}{4k_BT+J}\\
+    &=\frac{\frac{1}{2k_B}}{T+\frac{J}{4k_B}}
+  \end{split}
+\end{align}
+となり,これはCurie-Weiss則に従っている.
+\section*{[2]}
 \bibliography{ref.bib}
 \end{document}
