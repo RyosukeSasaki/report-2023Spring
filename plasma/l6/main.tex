@@ -1,0 +1,104 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{応用プラズマ工学}
+\author{82311971 佐々木良輔}
+\date{}
+\maketitle
+密度連続の式
+\begin{align}
+  \frac{\partial n}{\partial t}+{\rm div}(n\vec{v})=S_i
+\end{align}
+において両辺をシース内側の領域$V$で体積平均を行う.
+\begin{align}
+  \frac{1}{V}\int_VdV\frac{\partial n}{\partial t}+\frac{1}{V}\int_VdV{\rm div}(n\vec{v})=\frac{1}{V}\int_VdV\ S_i
+\end{align}
+左辺第1項の微分と積分を交換すると
+\begin{align}
+  \frac{1}{V}\int_VdV\frac{\partial n}{\partial t}=\frac{\partial}{\partial t}\frac{1}{V}\int_VdV\ n=\frac{\partial\overline{n}}{\partial t}
+\end{align}
+ここで$\overline{n}$はもはや空間に依存しないため
+\begin{align}
+  \frac{\partial\overline{n}}{\partial t}=\frac{d\overline{n}}{dt}
+\end{align}
+また左辺第2項において,発散定理を用いて
+\begin{align}
+  \frac{1}{V}\int_VdV{\rm div}(n\vec{v})=\frac{1}{V}\int_{\partial V}dS(n\vec{v})\cdot{\bm e}_n
+\end{align}
+ただし$\partial V$は$V$の表面, ${\bm e}_n$はシース表面での法線ベクトルとした.
+シース表面で$n=n_{is}$, $\vec{v}=v_{is}{\bm e}_n$の一定値を取るとする.
+ただしシース入口においてはイオンの速度がイオン音速$C_s$に一致することから, $v_{is}=C_s$である.
+(5)式はシース表面積$S$を用いて
+\begin{align}
+  \begin{split}
+    \frac{1}{V}\int_{\partial V}dS(n\vec{v})\cdot{\bm e}_n&=\frac{S}{V}n_{is}C_s\\
+    &=\frac{S}{V}C_s\frac{n_{is}}{\overline{n}}\overline{n}\\
+    &=\frac{\overline{n}}{\frac{V}{S\alpha C_s}}=\frac{\overline{n}}{\tau_p}
+  \end{split}
+\end{align}
+となる.
+最後に右辺第1項は
+\begin{align}
+  \frac{1}{V}\int_VdV\ S_i=\overline{S}_i
+\end{align}
+である.以上から(2)式は
+\begin{align}
+  \begin{array}{cc}
+    &\cfrac{d\overline{n}}{dt}+\cfrac{\overline{n}}{\tau_p}=\overline{S}_i\\
+    \iff&\cfrac{d\overline{n}}{dt}=\overline{S}_i-\cfrac{\overline{n}}{\tau_p}
+  \end{array}
+\end{align}
+となり,粒子バランスの式が得られた.ここで$\tau_p$は
+\begin{align}
+  \tau_p=\frac{V}{S}\frac{1}{\alpha C_s}
+\end{align}
+であった.プラズマ容器として一辺の長さが$L$の立方体を仮定すると
+\begin{align}
+  \frac{V}{S}\propto L
+\end{align}
+またシース表面での粒子束密度は$\Gamma_s=n_{is}C_s$であり,これは定常状態において壁への粒子束に等しい.
+したがって
+\begin{align}
+  \tau_p=L\frac{1}{\frac{1}{\overline{n}}\Gamma_s}=\frac{L\overline{n}}{\Gamma_s}
+\end{align}
+ここで$L\overline{n}$は,長さ$L$,断面積$1$の空間に存在する粒子数と考えられる.
+したがって$L\overline{n}/\Gamma_s$は,この空間に存在する粒子がシース表面での粒子束密度で失われるのに要する時間であり,
+生成されたプラズマの寿命と考えることができる.
+\bibliography{ref.bib}
+\end{document}
