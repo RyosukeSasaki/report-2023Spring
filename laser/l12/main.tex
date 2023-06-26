@@ -52,14 +52,47 @@
 となるので.両辺積分し
 \begin{align}
   {\everymath{\displaystyle}
-  \begin{array}{cc}
+  \begin{array}{cl}
     &\int dt=\int\frac{1}{A}\left(\frac{1}{y}+\frac{2B}{1-By}\right)dy\\
-    \iff&t=\frac{1}{A}\left(\log y-2\log(1-By)\right)+C
-    \iff&t=\frac{1}{A}\left(\log \frac{y}{(1-By)^2}\right)+C
+    \iff&t=\frac{1}{A}\left(\log y-2\log(1-By)\right)+C\qquad(Cは積分定数)\\
+    \iff&At=\log\left(\frac{y}{(1-By)^2}\right)+C\\
+    \iff&e^{At}=\frac{Cy}{(1-By)^2}\\
+    \iff&0=e^{At}B^2y^2-y(2Be^{At}+C)+e^{At}\\
+    \iff&y=\Omega_0^2=\frac{2Be^{At}+C\pm\sqrt{C^2+4BCe^{At}}}{2B^2e^{At}}
   \end{array}
   }
 \end{align}
-ただし$C$は積分定数である.
+を得る.ここで$B=1/\gamma_1\gamma_2$であったので$B>0$である.また$C=0$においては$y=1/B$と一定値を取るため,立ち上がりの挙動としては不適である.
+また$C<0$のとき$y$が実数解を持つ条件は
+\begin{align}
+  {\everymath{\displaystyle}
+  \begin{array}{cl}
+    &C(C+4Be^{At})\geq0\\
+    \iff&C+4Be^{At}\leq0\\
+    \iff&\frac{-C}{4B}\geq e^{At}\\
+    \iff&\log\left(\frac{-C}{4B}\right)\geq At
+  \end{array}
+  }
+\end{align}
+である.ここで等号が成立する際には
+\begin{align}
+  \begin{split}
+    y&=\frac{2B\frac{-C}{4B}+C\pm\sqrt{C^2+4BC\frac{-C}{4B}}}{2B^2\frac{-C}{4B}}\\
+    &=-\frac{1}{B}<0
+  \end{split}
+\end{align}
+であり,光強度が負となる.以上から$C>0$とするべきである.
+
+ここで$C=B=1>0$の場合のグラフは図のようになる.ただし$A=1>0$とした.紫線は$\sqrt{C^2+4BCe^{At}}$の前の符号を正とした場合,赤線は符号を負とした場合である.
+この図から符号を正とした場合は$t\rightarrow-\infty$で$\Omega_0^2\rightarrow\infty$であり,立ち上がりの挙動としては不適である.
+符号を負とした場合は光強度が$0$から一定の値へと立ち上がることがわかる.
+
+一方で$A<0$とした場合は時間発展を逆向きにすることになるため,紫線は$t\rightarrow\infty$で$\Omega_0^2\rightarrow\infty$となり,
+赤線は$t\rightarrow\infty$で$\Omega_0^2\rightarrow0$となるため共に不適である.
+\begin{center}
+  \includegraphics[width=8cm]{desmos-graph.png}
+  \fgcaption{$A=B=C=1$のときのグラフ,紫線は符号を正とした場合,赤線は符号を負とした場合}
+\end{center}
 \section*{問21}
 $f(\omega)$を以下で定義する.
 \begin{align}
