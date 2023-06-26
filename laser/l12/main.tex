@@ -1,0 +1,95 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{レーザー物理学 レポート No.12}
+\author{82311971 佐々木良輔}
+\date{}
+\maketitle
+\section*{問20}
+簡単のため以下では$\Omega_0^2=y$とする.また$B=C$とする.このとき与式は部分分数分解を行うと
+\begin{align}
+  \begin{split}
+    dt&=\frac{1+By}{A(1-By)y}dy\\
+    &=\frac{1}{A}\left(\frac{1}{y}+\frac{2B}{1-By}\right)dy
+  \end{split}
+\end{align}
+となるので.両辺積分し
+\begin{align}
+  {\everymath{\displaystyle}
+  \begin{array}{cc}
+    &\int dt=\int\frac{1}{A}\left(\frac{1}{y}+\frac{2B}{1-By}\right)dy\\
+    \iff&t=\frac{1}{A}\left(\log y-2\log(1-By)\right)+C
+    \iff&t=\frac{1}{A}\left(\log \frac{y}{(1-By)^2}\right)+C
+  \end{array}
+  }
+\end{align}
+ただし$C$は積分定数である.
+\section*{問21}
+$f(\omega)$を以下で定義する.
+\begin{align}
+  f(\omega)=\sum_n\delta\left(\omega-\frac{2n\pi}{t_r}\right)
+\end{align}
+これは周期$2\pi/t_r$の周期関数であり,フーリエ級数展開を用いて
+\begin{align}
+  f(\omega)=\sum_n\tilde{f}_ne^{in\omega t_r}
+\end{align}
+と表される.
+$\tilde{f}_n$はフーリエ係数であり
+\begin{align}
+  \begin{split}
+    \tilde{f}_n&=\frac{t_r}{2\pi}\int_{-\pi/t_r}^{\pi/t_r}f(\omega)e^{-in\omega t_r}d\omega\\
+    &=\frac{t_r}{2\pi}\int_{-\pi/t_r}^{\pi/t_r}\sum_k\delta\left(\omega-\frac{2k\pi}{t_r}\right)e^{-in\omega t_r}d\omega
+  \end{split}
+\end{align}
+ここで積分区間$[-\pi/t_r,\pi/t_r]$には$k=0$の項しか含まれないため
+\begin{align}
+  \begin{split}
+    \tilde{f}_n&=\frac{t_r}{2\pi}\int_{-\pi/t_r}^{\pi/t_r}\delta\left(\omega\right)e^{-in\omega t_r}d\omega\\
+    &=\frac{t_r}{2\pi}
+  \end{split}
+\end{align}
+したがって
+\begin{align}
+  \begin{array}{cc}
+    &f(\omega)=\displaystyle\sum_n\cfrac{t_r}{2\pi}e^{in\omega t_r}=\displaystyle\sum_n\delta\left(\omega-\frac{2n\pi}{t_r}\right)\\
+    \iff&\displaystyle\sum_ne^{in\omega t_r}=\cfrac{2\pi}{t_r}\displaystyle\sum_n\delta\left(\omega-\frac{2n\pi}{t_r}\right)
+  \end{array}
+\end{align}
+が示される.
+\end{document}
