@@ -1,0 +1,96 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{応用プラズマ工学}
+\author{82311971 佐々木良輔}
+\date{}
+\maketitle
+\subsection*{(1)}
+流体粒子の運動方程式において時間微分項を0とすると
+\begin{align}
+  {
+    \everymath{\displaystyle}
+    \begin{array}{cc}
+      &0=ne_j{\bm E}-\nabla p_j-n\nu_jm_j{\bm u}_j\\
+      \iff&n\nu_jm_j{\bm u}_j=ne_j{\bm E}-\nabla p_j\\
+      \iff&{\bm u}_j=\frac{e_j{\bm E}}{m_j\nu_j}-\frac{\nabla p_j}{n\nu_jm_j}
+    \end{array}
+  }
+\end{align}
+を得る.
+\subsection*{(2)}
+(1)式において$p_j=nk_BT_j$とすると
+\begin{align}
+  {\bm u}_j=\frac{e_j{\bm E}}{m_j\nu_j}-\frac{\nabla(nk_BT_j)}{n\nu_jm_j}
+\end{align}
+$T_j$が空間的に一様であるならば
+\begin{align}
+  \begin{split}
+    {\bm u}_j&=\frac{e_j{\bm E}}{m_j\nu_j}-\frac{k_BT_j}{\nu_jm_j}\frac{\nabla n}{n}\\
+    &=:\mu_j{\bm E}-D_j\frac{\nabla n}{n}
+  \end{split}
+\end{align}
+となる.
+\subsection*{(3)}
+$\mu_j$は一般的に移動度と呼ばれる.荷電粒子が物質中を移動すると,その速度は電場による加速と散乱によりある終端速度へ至る.
+移動度は単位電場を印加した際の粒子の運動の終端速度となる.
+$D_j$は拡散係数であり,粒子に大きさ1の濃度勾配が与えられた際に生じる粒子の速度となる.
+\subsection*{(4)}
+熱速度と温度の関係
+\begin{align}
+  \frac{1}{2}m_jv_{th,h}^2=\frac{1}{2}k_BT_j
+\end{align}
+から
+\begin{align}
+  v_{th,j}^2=\frac{k_BT_j}{m_j}
+\end{align}
+両辺を$\nu_j$で割ると
+\begin{align}
+  \frac{v_{th,j}^2}{\nu_j}=\frac{k_BT_j}{m_j\nu_j}=D_j
+\end{align}
+ここで平均自由行程$\lambda_j$には
+\begin{align}
+  \lambda_j=v_{th,h}\frac{1}{\nu_j}=v_{th,j}\tau_j
+\end{align}
+の関係があったので(6)式は
+\begin{align}
+    D_j&=\frac{\lambda_j^2}{\tau_j^2}\frac{1}{\nu_j}=\frac{\lambda_j^2}{\tau_j}
+\end{align}
+を得る.
+\end{document}
