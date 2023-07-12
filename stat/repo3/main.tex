@@ -64,7 +64,7 @@
 }
 \newcommand{\up}{\uparrow}
 \newcommand{\dn}{\downarrow}
-
+\newcommand{\neel}{\text{N\'{e}el}}
 
 \usepackage{amsmath}
 \makeatletter
@@ -391,5 +391,125 @@ $h\leq J(1+\Delta)$より$h/J(1+\Delta)\leq1$なので
 \end{center}
 \subsection*{(d)}
 N\'{e}el状態におけるエネルギー期待値を計算する.
-まず$S_j^+S_{j+1^-}$の期待値は, $j$が偶数のとき
+まず$S_j^+S_{j+1}^-$の期待値は, $j$が偶数のとき
+\begin{align}
+  \begin{split}
+    \Bra{\neel}S_j^+S_{j+1}^-\Ket{\neel}&=\Bra{\neel}\left(
+      \Ket{\up}_1\otimes\cdots\otimes S_j^+\Ket{\dn}_j\otimes S_{j+1}^-\Ket{\up}\otimes\cdots
+    \right)\\
+    &=\subscripts{1}{\Braket{\up|\up}}{1}\times\cdots\times\subscripts{j}{\Braket{\dn|\up}}{j}\times\subscripts{j+1}{\Braket{\up|\dn}}{j+1}\times\cdots\\
+    &=0
+  \end{split}
+\end{align}
+また$j$が奇数のとき
+\begin{align}
+  \begin{split}
+    \Bra{\neel}S_j^+S_{j+1}^-\Ket{\neel}&=\Bra{\neel}\left(
+      \Ket{\up}_1\otimes\cdots\otimes S_j^+\Ket{\up}_j\otimes S_j^-\Ket{\dn}\otimes\cdots
+    \right)\\
+    &=0
+  \end{split}
+\end{align}
+同様にして$S_j^-S_{j+1}^+$の期待値は$j$が偶数のとき
+\begin{align}
+  \begin{split}
+    \Bra{\neel}S_j^-S_{j+1}^+\Ket{\neel}&=\Bra{\neel}\left(
+      \Ket{\up}_1\otimes\cdots\otimes S_j^-\Ket{\dn}_j\otimes S_{j+1}^+\Ket{\up}\otimes\cdots
+    \right)\\
+    &=0
+  \end{split}
+\end{align}
+また$j$が奇数のとき
+\begin{align}
+  \begin{split}
+    \Bra{\neel}S_j^-S_{j+1}^+\Ket{\neel}&=\Bra{\neel}\left(
+      \Ket{\up}_1\otimes\cdots\otimes S_j^-\Ket{\up}_j\otimes S_{j+1}^+\Ket{\dn}\otimes\cdots
+    \right)\\
+    &=\subscripts{1}{\Braket{\up|\up}}{1}\times\cdots\times\subscripts{j}{\Braket{\up|\dn}}{j}\times\subscripts{j+1}{\Braket{\dn|\up}}{j+1}\times\cdots\\
+    &=0
+  \end{split}
+\end{align}
+以上から
+\begin{align}
+  \Bra{\neel}S_j^+S_{j+1}^-+S_j^-S_{j+1}^+\Ket{\neel}=0
+\end{align}
+次に$S_j^zS_{j+1}^z$の期待値は
+\begin{align}
+  \begin{split}
+    \Bra{\neel}S_j^zS_{j+1}^z\Ket{\neel}=&\Bra{\neel}\biggl(
+      \Ket{\up}_1\otimes\cdots\otimes\frac{1}{2}\left(\subscripts{}{\Ket{\up}}{j}\subscripts{j}{\Bra{\up}}{}-\subscripts{}{\Ket{\dn}}{j}\subscripts{j}{\Bra{\dn}}{}\right)\Ket{\up}_j\\
+      &\otimes\frac{1}{2}\left(\subscripts{}{\Ket{\up}}{j+1}\subscripts{j+1}{\Bra{\up}}{}-\subscripts{}{\Ket{\dn}}{j+1}\subscripts{j+1}{\Bra{\dn}}{}\right)\Ket{\dn}_{j+1}\otimes\cdots
+    \biggr)\\
+    =&\Bra{\neel}\left(
+      \Ket{\up}_1\otimes\cdots\otimes\frac{1}{2}\Ket{\up}_j\otimes\left(-\frac{1}{2}\Ket{\dn}_{j+1}\right)\otimes\cdots
+    \right)\\
+    =&-\frac{1}{4}
+  \end{split}
+\end{align}
+次に$S_j^z$の期待値は$j$が偶数のとき
+\begin{align}
+  \begin{split}
+    \Bra{\neel}S_j^z\Ket{\neel}=&\Bra{\neel}\left(\Ket{\up}_1\otimes\cdots\otimes S_j^z\Ket{\dn}_j\otimes\cdots\right)\\
+    =&-\frac{1}{2}
+  \end{split}
+\end{align}
+$j$が奇数のとき
+\begin{align}
+  \begin{split}
+    \Bra{\neel}S_j^z\Ket{\neel}=&\Bra{\neel}\left(\Ket{\up}_1\otimes\cdots\otimes S_j^z\Ket{\up}_j\otimes\cdots\right)\\
+    =&\frac{1}{2}
+  \end{split}
+\end{align}
+したがって$N$が偶数であることから
+\begin{align}
+  \Bra{\neel}\sum_{j=1}^NS_j^z\Ket{\neel}=&\frac{1}{2}-\frac{1}{2}+\cdots=0
+\end{align}
+以上からエネルギーの期待値は
+\begin{align}
+  \Braket{\neel|H|\neel}=0+\sum_{j=1}^N\left(-\frac{1}{4}\right)-0=-\frac{J\Delta N}{4}
+\end{align}
+したがって1スピンあたりのエネルギー期待値は
+\begin{align}
+  e_N=\frac{\Braket{\neel|H|\neel}}{N}=-\frac{J\Delta}{4}
+\end{align}
+である.
+次に$e_N=e_0(h_c)$となる$h_c$を求める.
+\subsubsection*{$h_c>J(1+\Delta)$のとき}
+$h_c>J(1+\Delta)$のとき$e_0$は(27)式なので
+\begin{align}
+  \begin{split}
+    &e_0(h_c)=\frac{J\Delta}{4}-\frac{h_c}{2}=-\frac{J\Delta}{4}\\
+    \therefore&\qquad h_c=J\Delta
+  \end{split}
+\end{align}
+このとき$h_c>J(1+\Delta)$から
+\begin{align}
+  \begin{split}
+    &J\Delta-J(1+\Delta)>0\\
+    \therefore&\qquad J<0
+  \end{split}
+\end{align}
+であり, したがって$h_c=J\Delta<0$となる.ここでは$h\geq0$としていたので,
+$h_c>J(1+\Delta)$の場合は不適である.
+\subsection*{$h_c\leq J(1+\Delta)$のとき}
+$h_c\leq J(1+\Delta)$のとき$e_0$は(34)式なので
+\begin{align}
+  \begin{array}{cc}
+    &e_0(h_c)=-\frac{J}{4}-\frac{1}{4}\frac{h_c^2}{J(1+\Delta)}=-\frac{J\Delta}{4}\\
+    \iff&J(\Delta-1)=\frac{h_c^2}{J(\Delta+1)}\\
+    \iff&h_c=\pm J\sqrt{\Delta^2-1}
+  \end{array}
+\end{align}
+$h\geq0$より
+\begin{align}
+  h_c=|J|\sqrt{\Delta^2-1}
+\end{align}
+となる.
+
+ここで$\sum_jS_j^z$の期待値は(44)式から$0$である.以上から,
+スピンフロップ転移があるときの磁化過程は図3のようになる.
+\begin{center}
+  \includegraphics[width=6cm]{jika_2.png}
+  \fgcaption{スピンフロップ転移があるときの磁化過程}
+\end{center}
 \end{document}
