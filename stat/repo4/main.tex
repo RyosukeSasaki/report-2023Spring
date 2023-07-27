@@ -1,0 +1,233 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\bibliographystyle{junsrt}
+
+\usepackage{listings,jvlisting}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+\usepackage{braket}
+\usepackage{autobreak}
+
+\definecolor{OliveGreen}{rgb}{0.0,0.6,0.0}
+\definecolor{Orenge}{rgb}{0.89,0.55,0}
+\definecolor{SkyBlue}{rgb}{0.28, 0.28, 0.95}
+\lstset{
+  language={verilog}, % 言語の指定
+  basicstyle={\ttfamily},
+  identifierstyle={\small},
+  commentstyle={\smallitshape},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  xrightmargin=0zw,
+  xleftmargin=3zw,
+  lineskip=-0.5ex,
+  keywordstyle={\color{SkyBlue}},     %キーワード(int, ifなど)の書体指定
+  commentstyle={\color{OliveGreen}},  %注釈の書体
+  stringstyle=\color{Orenge}          %文字列
+}
+\pagestyle{empty}
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+\newcommand{\up}{\uparrow}
+\newcommand{\dn}{\downarrow}
+\newcommand{\neel}{\text{N\'{e}el}}
+
+\usepackage{amsmath}
+\makeatletter
+%%%
+%%%  左側、右側に subscript を付記する。
+%%%  使い方: \subscripts{左下}{中身}{右下}
+%%%
+%%%  by FUJIWARA Hiroshi <fujiwara (at) acs.i.kyoto-u.ac.jp>
+%%%
+\newcommand{\subscripts}[3]{%
+  \@mathmeasure\z@\displaystyle{#2}%
+  \global\setbox\@ne\vbox to\ht\z@{}\dp\@ne\dp\z@
+  \setbox\tw@\box\@ne
+  \@mathmeasure4\displaystyle{\copy\tw@_{#1}}%
+  \@mathmeasure6\displaystyle{{#2}_{#3}}%
+  \dimen@-\wd6 \advance\dimen@\wd4 \advance\dimen@\wd\z@
+  \hbox to\dimen@{}\mathop{\kern-\dimen@\box4\box6}%
+}
+\makeatother
+
+\everymath{\displaystyle}
+\begin{document}
+\title{統計物理学 No.4}
+\author{82311971 佐々木良輔}
+\date{}
+\maketitle
+\subsection*{[1] (a)}
+${\bm S}^+=\sqrt{2S-\Hat{n}}\hat{a}$, ${\bm S}^-=\hat{a}^\dagger\sqrt{2S-\hat{n}}$, $\hat{n}=\hat{a}^\dagger\hat{a}$より
+\begin{align}
+  \begin{split}
+    \Bigl[{\bm S}^+,{\bm S}^-\Bigr]&=\Bigl[\sqrt{2S-\Hat{n}}\hat{a},\hat{a}^\dagger\sqrt{2S-\hat{n}}\Bigr]\\
+    &=\sqrt{2S-\Hat{n}}\hat{a}\hat{a}^\dagger\sqrt{2S-\hat{n}}-\hat{a}^\dagger\sqrt{2S-\hat{n}}\sqrt{2S-\Hat{n}}\hat{a}\\
+    &=\sqrt{2S-\Hat{n}}\hat{a}\hat{a}^\dagger\sqrt{2S-\hat{n}}-\hat{a}^\dagger(2S-\Hat{n})\hat{a}
+  \end{split}
+\end{align}
+ここで$\hat{a}\hat{a}^\dagger=1+\hat{a}^\dagger\hat{a}$から
+\begin{align}
+  \begin{split}
+    \Bigl[\hat{n},\hat{a}\hat{a}^\dagger\Bigr]=\Bigl[\hat{a}^\dagger\hat{a},\hat{a}\hat{a}^\dagger\Bigr]&=\hat{a}^\dagger\hat{a}\hat{a}\hat{a}^\dagger-\hat{a}\hat{a}^\dagger\hat{a}^\dagger\hat{a}\\
+    &=\hat{a}^\dagger\hat{a}(1+\hat{a}^\dagger\hat{a})-(1+\hat{a}^\dagger\hat{a})\hat{a}^\dagger\hat{a}\\
+    &=0
+  \end{split}
+\end{align}
+より$\hat{n}$と$\hat{a}\hat{a}^\dagger$は交換する.また
+\begin{align}
+  \begin{split}
+    \hat{n}\hat{a}=\hat{a}^\dagger\hat{a}\hat{a}=(\hat{a}\hat{a}^\dagger-1)\hat{a}=\hat{a}(\hat{n}-1)
+  \end{split}
+\end{align}
+を用いて
+\begin{align}
+  \begin{split}
+    \Bigl[{\bm S}^+,{\bm S}^-\Bigr]
+    &=\hat{a}\hat{a}^\dagger\sqrt{2S-\Hat{n}}\sqrt{2S-\hat{n}}-\hat{a}^\dagger(2S-\Hat{n})\hat{a}\\
+    &=\hat{a}\hat{a}^\dagger(2S-\hat{n})-\hat{a}^\dagger\hat{a}(2S-(\Hat{n}-1))\\
+    &=\hat{a}\hat{a}^\dagger(2S-\hat{n})-\hat{a}^\dagger\hat{a}(2S-\Hat{n})-\hat{a}^\dagger\hat{a}\\
+    &=\Bigl[\hat{a},\hat{a}^\dagger\Bigr](2S-\hat{n})-\hat{n}\\
+    &=2(S+\hat{n})=2{\bm S}^z
+  \end{split}
+\end{align}
+を得る.
+\subsection*{[1] (b)}
+\begin{align}
+  \begin{split}
+    {\bm S}^2&=({\bm S}^x)^2+({\bm S}^y)^2+({\bm S}^z)^2\\
+    &=({\bm S}^z)^2+\frac{1}{2}\left({\bm S}^+{\bm S}^-+{\bm S}^-{\bm S}^+\right)\\
+    &=(S-\hat{n})^2+\frac{1}{2}\left(\sqrt{2S-\Hat{n}}\hat{a}\hat{a}^\dagger\sqrt{2S-\hat{n}}+\hat{a}^\dagger\sqrt{2S-\hat{n}}\sqrt{2S-\Hat{n}}\hat{a}\right)
+  \end{split}
+\end{align}
+ここで第2項は前問(4)式と同様の変形により
+\begin{align}
+  \begin{split}
+    {\bm S}^2&=(S-\hat{n})^2+\frac{1}{2}\left(\hat{a}\hat{a}^\dagger(2S-\hat{n})+\hat{a}^\dagger\hat{a}(2S-\hat{n}+1)\right)\\
+    &=(S-\hat{n})^2+\frac{1}{2}\left((\hat{a}^\dagger\hat{a}+1)(2S-\hat{n})+\hat{a}^\dagger\hat{a}(2S-\hat{n}+1)\right)\\
+    &=(S-\hat{n})^2+\frac{1}{2}\left(2S\hat{n}-\hat{n}^2+2S-\hat{n}+2S\hat{n}-\hat{n}^2+\hat{n}\right)\\
+    &=S^2-2S\hat{n}+\hat{n}^2+2S\hat{n}-\hat{n}^2+S\\
+    &=S(S+1)
+  \end{split}
+\end{align}
+を得る.
+\subsection*{[2] (a)}
+個数演算子の期待値がBose分布$\langle\hat{a}_k^\dagger\hat{a}_h\rangle=(\exp(\beta(h+\epsilon_k))-1)^{-1}$, 
+ただし低温では長波長近似が成り立つとして$\epsilon_k\simeq JS{\bm k}^2$に従う.
+3次元, $h=0$でのスピン一つあたりのexcitation energyは
+\begin{align}
+  \begin{split}
+    \frac{\Delta E}{N}&=\frac{1}{N}\sum_{\bm k}\epsilon_k\langle\hat{a}_k^\dagger\hat{a}_h\rangle\\
+    &=\frac{1}{N}\sum_{\bm k}\frac{JSk^2}{e^{\beta JSk^2}-1}
+  \end{split}
+\end{align}
+$N\rightarrow\infty$で和を積分に置き換えると
+\begin{align}
+  \frac{\Delta E}{N}=\int_{(-\pi,\pi]^3}\frac{d^3k}{(2\pi)^3}\frac{JSk^2}{e^{\beta JSk^2}-1}
+\end{align}
+ここで低温において被積分関数は$k\rightarrow\infty$で急速に減少するため,積分範囲を無限大に置き換えることができる
+\begin{align}
+  \frac{\Delta E}{N}=\int_{(-\infty,\infty]^3}\frac{d^3k}{(2\pi)^3}\frac{JSk^2}{e^{\beta JSk^2}-1}
+\end{align}
+被積分関数は$\bm k$の絶対値にしか依存しないので, 球座標を用いて積分を行うと
+\begin{align}
+  \begin{split}
+    \frac{\Delta E}{N}&=\int_0^\infty\frac{4\pi k^2dk}{(2\pi)^3}\frac{JSk^2}{e^{\beta JSk^2}-1}\\
+    &=\frac{1}{2\pi^2}\frac{1}{2\beta(\beta JS)^{3/2}}\int_0^\infty\frac{(\beta JSk^2)^{3/2}}{e^{\beta JSk^2}-1}\beta JS\cdot 2kdk
+  \end{split}
+\end{align}
+ここで$\beta JSk^2=x$とすると, $dx=\beta JS\cdot2kdk$なので
+\begin{align}
+  \frac{\Delta E}{N}=\frac{1}{2\pi^2}\frac{1}{2\beta(\beta JS)^{3/2}}\int_0^\infty\frac{x^{3/2}}{e^x-1}dx
+\end{align}
+更に積分公式
+\begin{align}
+  \int_0^\infty\frac{x^p}{e^x-1}dx=\Gamma(p+1)\zeta(p+1)\qquad (p>0)
+\end{align}
+を用いて
+\begin{align}
+  \begin{split}
+    \frac{\Delta E}{N}&=\frac{\Gamma(5/2)\zeta(5/2)}{4\pi^2(JS)^{3/2}}\frac{1}{\beta^{5/2}}\\
+    &=\frac{\Gamma(5/2)\zeta(5/2)}{4\pi^2(JS)^{3/2}}(k_BT)^{5/2}
+  \end{split}
+\end{align}
+を得る.また1スピンあたりの比熱はこの結果を用いて
+\begin{align}
+  \begin{split}
+    \frac{\partial}{\partial T}\frac{\Delta E}{N}
+    &=\frac{\Gamma(5/2)\zeta(5/2)}{4\pi^2(JS)^{3/2}}\frac{5k_B^{5/2}}{2}T^{3/2}
+  \end{split}
+\end{align}
+となる.
+\subsection*{[2] (b)}
+有限磁場$h>0$での飽和磁化からの磁化の変化量は
+\begin{align}
+  \begin{split}
+    S-m&=\frac{1}{N}\sum_{\bm k}\langle\hat{a}_k^\dagger\hat{a}_h\rangle\\
+    &=\frac{1}{N}\sum_{\bm k}\frac{1}{e^{\beta(h+JSk^2)-1}}
+  \end{split}
+\end{align}
+前問と同様に$N\rightarrow\infty$で和を積分に置き換えると
+\begin{align}
+  \begin{split}
+    S-m&=\int_{(-\pi,\pi]}\frac{d^3k}{(2\pi)^3}\frac{1}{e^{\beta(h+JSk^2)}-1}\\
+    &=\int_0^\infty\frac{4\pi k^2dk}{(2\pi)^3}\frac{1}{e^{\beta(h+JSk^2)}-1}
+  \end{split}
+\end{align}
+更に$\beta JSk^2=x$とすれば
+\begin{align}
+  \begin{split}
+    S-m&=\frac{1}{2\pi^2}\frac{1}{2(\beta JS)^{3/2}}\int_0^\infty \beta JS\cdot2kdk\frac{\sqrt{\beta JS}k}{e^{\beta h}e^{\beta JSk^2}-1}\\
+    &=\frac{1}{2\pi^2}\frac{1}{2(\beta JS)^{3/2}}\int_0^\infty \frac{\sqrt{x}}{e^{\beta h}e^x-1}dx
+  \end{split}
+\end{align}
+ここで多重対数関数
+\begin{align}
+  {\rm Li}_s(z)=\sum_{n=1}^\infty\frac{z^n}{n^s}=\frac{1}{\Gamma(s)}\int_0^\infty dx\frac{x^{s-1}}{e^x/z-1}
+\end{align}
+を用いれば
+\begin{align}
+  \begin{split}
+    S-m&=\frac{1}{4\pi^2(\beta JS)^{3/2}}\Gamma(3/2){\rm Li}_{3/2}(e^{-\beta h})\\
+    &=\frac{1}{4\pi^2(\beta JS)^{3/2}}\Gamma(3/2)\sum_{n=1}^\infty\frac{(e^{-\beta h})^n}{n^{3/2}}
+  \end{split}
+\end{align}
+ここで$k_BT\ll h$より$1\ll \beta h$なので$e^{-\beta h}\ll 1$, したがって(19)式最右辺の和で$n=1$の項だけを残すと
+\begin{align}
+  S-m&=\frac{1}{4\pi^2(\beta JS)^{3/2}}\Gamma(3/2)e^{-\beta h}
+\end{align}
+を得る.
+\end{document}
